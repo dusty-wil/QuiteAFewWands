@@ -1,0 +1,143 @@
+﻿﻿* 
+{
+    box-sizing: border-box;
+}
+
+body 
+{
+    background-color: #2D2327;
+    margin: 0;
+    padding: 0;
+}
+
+.content-container 
+{
+    padding: 10px;
+    width: 100%;
+    background-color: #E0DDCF;
+    min-height: 300px;
+    margin: 0;
+}
+
+.header-container 
+{
+    padding: 10px;
+    width: 100%;
+    background-color: #2D2327;
+    color: #E0DDCF;
+    text-align: center;
+}
+
+.header-container img 
+{
+    width: 70%;
+}
+
+.nav-container 
+{
+    color: #e0ddcf;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    background-color: #2D2327;
+}
+
+.nav-container a 
+{
+    color: #E0DDCF;
+    text-decoration: none;
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+.nav-container a:hover 
+{
+    background-color: #E0DDCF;
+    color: #2D2327;
+}
+
+.footer-container 
+{
+    padding: 10px;
+    width: 100%;
+    background-color: #2D2327;
+    color: #E0DDCF;
+    text-align: center;
+}
+
+.footer-container a 
+{
+    color: #e0ddcf;
+}
+
+.body-content 
+{
+    width: 60%;
+    margin: 2em auto 3em;
+    font-size: 20px;
+}
+
+.non-semantic-protector 
+{
+    position: relative;
+    z-index: 1;
+}
+
+.ribbon 
+{
+    font-size: 24px !important;
+    font-family: sans-serif;
+    width: 45%;
+    position: relative;
+    background: #B87D4B;
+    color: #E0DDCF;
+    text-align: center;
+    padding: 1em 2em;
+    margin: 2em auto 3em;
+}
+
+.ribbon:before, .ribbon:after 
+{
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: -1em;
+    border: 1.5em solid #7D4D24;
+    z-index: -1;
+}
+
+.ribbon:before 
+{
+    left: -2em;
+    border-right-width: 1.5em;
+    border-left-color: transparent;
+}
+
+.ribbon:after 
+{
+    right: -2em;
+    border-left-width: 1.5em;
+    border-right-color: transparent;
+}
+
+.ribbon .ribbon-content:before, .ribbon .ribbon-content:after 
+{
+    content: "";
+    position: absolute;
+    display: block;
+    border-style: solid;
+    border-color: #48290E transparent transparent transparent;
+    bottom: -1em;
+}
+
+.ribbon .ribbon-content:before 
+{
+    left: 0;
+    border-width: 1em 0 0 1em;
+}
+
+.ribbon .ribbon-content:after 
+{
+    right: 0;
+    border-width: 1em 1em 0 0;
+}

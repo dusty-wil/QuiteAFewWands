@@ -1,0 +1,27 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteMaster.master.cs" Inherits="QuiteAFewWands.Admin.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>
+        <asp:ContentPlaceHolder ID="titlePlaceholder" runat="server"></asp:ContentPlaceHolder>
+    </title>
+    <link rel="stylesheet" href="css/style.css" />
+    <asp:ContentPlaceHolder ID="headPlaceholder" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="header-container">
+        <img src="images/header_logo_large.png"/>
+    </div>
+    <div class="nav-container">
+        <a href="#">links</a><a href="#">links</a><a href="#">links</a><a href="#">links</a><a href="#">links</a>
+    </div>
+    <div class="content-container">
+        <asp:ContentPlaceHolder ID="bodyContentPlaceholder" runat="server"></asp:ContentPlaceHolder>
+    </div>
+    <div class="footer-container">
+        <a href="#">links</a> | <a href="#">links</a> | <a href="#">links</a> | <a href="#">links</a> | <a href="#">links</a>
+    </div>
+</body>
+</html>
