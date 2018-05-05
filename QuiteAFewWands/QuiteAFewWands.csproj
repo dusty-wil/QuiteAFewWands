@@ -66,8 +66,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\AddEditCoreType.aspx" />
+    <Content Include="Admin\AddEditFlexibility.aspx" />
+    <Content Include="Admin\AddEditUser.aspx" />
+    <Content Include="Admin\AddEditWand.aspx" />
+    <Content Include="Admin\AddEditWoodType.aspx" />
     <Content Include="SiteMaster.Master" />
+    <Content Include="AdminMaster.Master" />
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\QuiteAFewWands - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -85,9 +92,53 @@
     <Content Include="images\header_logo.png" />
     <Content Include="images\header_logo_large.png" />
     <Content Include="images\header_logo_long.png" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminMaster.Master.cs">
+      <DependentUpon>AdminMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminMaster.Master.designer.cs">
+      <DependentUpon>AdminMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddEditCoreType.aspx.cs">
+      <DependentUpon>AddEditCoreType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddEditCoreType.aspx.designer.cs">
+      <DependentUpon>AddEditCoreType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddEditFlexibility.aspx.cs">
+      <DependentUpon>AddEditFlexibility.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddEditFlexibility.aspx.designer.cs">
+      <DependentUpon>AddEditFlexibility.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddEditUser.aspx.cs">
+      <DependentUpon>AddEditUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddEditUser.aspx.designer.cs">
+      <DependentUpon>AddEditUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddEditWand.aspx.cs">
+      <DependentUpon>AddEditWand.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddEditWand.aspx.designer.cs">
+      <DependentUpon>AddEditWand.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddEditWoodType.aspx.cs">
+      <DependentUpon>AddEditWoodType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddEditWoodType.aspx.designer.cs">
+      <DependentUpon>AddEditWoodType.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -104,9 +155,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Admin\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
