@@ -76,22 +76,40 @@ namespace QuiteAFewWands {
         protected global::System.Web.UI.WebControls.DropDownList CoreTypeList;
         
         /// <summary>
-        /// Label2 control.
+        /// FlexibilityFilterLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label FlexibilityFilterLbl;
         
         /// <summary>
-        /// DropDownList2 control.
+        /// FlexibilityList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
+        protected global::System.Web.UI.WebControls.DropDownList FlexibilityList;
+        
+        /// <summary>
+        /// CountryFilterLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CountryFilterLbl;
+        
+        /// <summary>
+        /// CountryList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList CountryList;
         
         /// <summary>
         /// ProductGrid control.

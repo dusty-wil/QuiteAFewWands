@@ -1,10 +1,11 @@
-﻿﻿* 
+﻿* 
 {
     box-sizing: border-box;
 }
 
 body 
 {
+    font-size: 16px;
     background-color: #2D2327;
     margin: 0;
     padding: 0;
@@ -72,10 +73,96 @@ body
 
 .body-content 
 {
-    width: 60%;
+    width: 80%;
     margin: 2em auto 3em;
     font-size: 20px;
 }
+
+.filter-lbl
+{
+    display: inline-block;
+    width: 15%;
+    font-weight: bold;
+    margin: 5px;
+    text-align: right;
+    font-size: 14px;
+}
+
+.filter-list
+{
+    display: inline-block;
+    width: 30%;
+    margin: 5px;
+}
+
+
+.product-grid 
+{
+    margin: 15px;
+    border: 1px solid #B87D4B;
+    font-size: 14px;
+    font-family: sans-serif;
+    width: 100%;
+}
+
+.product-grid th
+{
+    padding: 10px;
+}
+
+.product-grid-header 
+{
+    background-color: #B87D4B;
+    color: #E0DDCF;
+    padding: 10px;
+    border: 0;
+}
+
+.product-grid-header a 
+{
+    text-decoration: none;
+    color: #E0DDCF;
+    font-weight: bold;
+}
+
+.product-grid-header a:hover 
+{
+    text-decoration: underline;
+    color: #E0DDCF;
+    font-weight: bold;
+}
+
+.product-grid td 
+{
+    padding: 10px;
+    border: 0;
+    text-align: center;
+}
+
+.product-grid tr:nth-child(even) 
+{
+    background-color: #F4ECC4;
+}
+
+.product-grid-pager 
+{
+    background-color: #D36135 !important;
+    color: #ECE4B7;
+    padding: 10px;
+    border: 0;
+    font-weight: bold;
+    text-align: right;
+}
+
+.product-grid-pager a
+{
+    color: #ECE4B7;
+}
+
+
+
+
+
 
 .non-semantic-protector 
 {
@@ -85,15 +172,15 @@ body
 
 .ribbon 
 {
-    font-size: 24px !important;
+    font-size: 36px !important;
     font-family: sans-serif;
-    width: 45%;
+    width: 35%;
     position: relative;
     background: #B87D4B;
     color: #E0DDCF;
     text-align: center;
-    padding: 1em 2em;
-    margin: 2em auto 3em;
+    padding: .5em 1.5em;
+    margin: 1em auto 2em;
 }
 
 .ribbon:before, .ribbon:after 
@@ -102,20 +189,20 @@ body
     position: absolute;
     display: block;
     bottom: -1em;
-    border: 1.5em solid #7D4D24;
+    border: 1.0em solid #7D4D24;
     z-index: -1;
 }
 
 .ribbon:before 
 {
-    left: -2em;
+    left: -1.5em;
     border-right-width: 1.5em;
     border-left-color: transparent;
 }
 
 .ribbon:after 
 {
-    right: -2em;
+    right: -1.5em;
     border-left-width: 1.5em;
     border-right-color: transparent;
 }

@@ -54,40 +54,74 @@ namespace QuiteAFewWands
             }
         }
 
-        public String ProductGridFilterExpression
+        public int ProductGridWoodTypeFilterVal
         {
             get
             {
-                if (ViewState["productGridFilterExpression"] == null)
+                if (ViewState["productGridWoodTypeFilterVal"] == null)
                 {
-                    ViewState["productGridFilterExpression"] = "";
+                    ViewState["productGridWoodTypeFilterVal"] = 0;
                 }
-                return (String)ViewState["productGridFilterExpression"];
+                return (int)ViewState["productGridWoodTypeFilterVal"];
             }
 
             set
             {
-                ViewState["productGridFilterExpression"] = value;
+                ViewState["productGridWoodTypeFilterVal"] = value;
             }
         }
 
-        public int ProductGridFilterVal
+        public int ProductGridCoreTypeFilterVal
         {
             get
             {
-                if (ViewState["productGridFilterVal"] == null)
+                if (ViewState["productGridCoreTypeFilterVal"] == null)
                 {
-                    ViewState["productGridFilterVal"] = 0;
+                    ViewState["productGridCoreTypeFilterVal"] = 0;
                 }
-                return (int)ViewState["productGridFilterVal"];
+                return (int)ViewState["productGridCoreTypeFilterVal"];
             }
 
             set
             {
-                ViewState["productGridFilterVal"] = value;
+                ViewState["productGridCoreTypeFilterVal"] = value;
             }
         }
 
+        public int ProductGridFlexibilityFilterVal
+        {
+            get
+            {
+                if (ViewState["productGridFlexibilityFilterVal"] == null)
+                {
+                    ViewState["productGridFlexibilityFilterVal"] = 0;
+                }
+                return (int)ViewState["productGridFlexibilityFilterVal"];
+            }
+
+            set
+            {
+                ViewState["productGridFlexibilityFilterVal"] = value;
+            }
+        }
+
+        public int ProductGridCountryFilterVal
+        {
+            get
+            {
+                if (ViewState["productGridCountryFilterVal"] == null)
+                {
+                    ViewState["productGridCountryFilterVal"] = 0;
+                }
+                return (int)ViewState["productGridCountryFilterVal"];
+            }
+
+            set
+            {
+                ViewState["productGridCountryFilterVal"] = value;
+            }
+        }
+       
         public int ProductGridPageIndex
         {
             get
@@ -106,10 +140,100 @@ namespace QuiteAFewWands
         }
 
 
-
+        /**
+         * page load functions. fill the drop-downs and show the initial grid
+         */
         protected void Page_Load(object sender, EventArgs e)
         {
+            OkMsg.Visible = false;
+            DBErrMsg.Visible = false;
 
+            if (!IsPostBack)
+            {
+                FillWoodTypeList();
+                FillCoreTypeList();
+                FillFlexibilityList();
+                FillCountryList();
+
+                UpdateProductGridView();
+            }
+            
+        }
+
+
+        /**
+         * This is triggered when someone picks a wood type to filter by.
+         * Stores the filter variables then updates the grid
+         */
+        protected void WoodType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int selVal = int.Parse(((DropDownList)sender).SelectedValue);
+                ProductGridWoodTypeFilterVal = selVal;
+                UpdateProductGridView();
+            }
+            catch (FormatException fe)
+            {
+                Console.WriteLine(fe.ToString());
+            }
+        }
+
+
+        /**
+         * This is triggered when someone picks a core type to filter by.
+         * Stores the filter variables then updates the grid
+         */
+        protected void CoreType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int selVal = int.Parse(((DropDownList)sender).SelectedValue);
+                ProductGridCoreTypeFilterVal = selVal;
+                UpdateProductGridView();
+            }
+            catch (FormatException fe)
+            {
+                Console.WriteLine(fe.ToString());
+            }
+        }
+
+
+        /**
+         * This is triggered when someone picks a flexibility to filter by.
+         * Stores the filter variables then updates the grid
+         */
+        protected void Flexibility_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int selVal = int.Parse(((DropDownList)sender).SelectedValue);
+                ProductGridFlexibilityFilterVal = selVal;
+                UpdateProductGridView();
+            }
+            catch (FormatException fe)
+            {
+                Console.WriteLine(fe.ToString());
+            }
+        }
+
+
+        /**
+         * This is triggered when someone picks a country to filter by.
+         * Stores the filter variables then updates the grid
+         */
+        protected void Country_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int selVal = int.Parse(((DropDownList)sender).SelectedValue);
+                ProductGridCountryFilterVal = selVal;
+                UpdateProductGridView();
+            }
+            catch (FormatException fe)
+            {
+                Console.WriteLine(fe.ToString());
+            }
         }
 
 
@@ -131,6 +255,7 @@ namespace QuiteAFewWands
             }
             UpdateProductGridView();
         }
+
 
         /**
          * This is the "on page change" action. Stores the page number info then
@@ -156,25 +281,30 @@ namespace QuiteAFewWands
 
             DataSet ds = new DataSet();
 
-            String connectionString = WebConfigurationManager.ConnectionStrings["Lab2"].ConnectionString;
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
 
             String sql =
                 "SELECT " +
-                    "I.Id AS ItemId, " +
-                    "I.Name, " +
-                    "I.Height, " +
-                    "I.Width, " +
-                    "I.Price, " +
-                    "I.IntroDate AS Year, " +
-                    "I.BrandId, " +
-                    "B.Name AS Brand, " +
-                    "I.CategoryId, " +
-                    "C.Name AS Category, " +
-                    "I.Description " +
-                "FROM Item AS I " +
-                "INNER JOIN Brand AS B ON B.Id = I.BrandId " +
-                "INNER JOIN Category AS C ON C.Id = I.CategoryId "
+                    "w.Id WandId, " +
+                    "w.Name, " +
+                    "wt.WoodTypeName, " +
+                    "w.WoodId, " +
+                    "ct.CoreTypeName, " +
+                    "w.CoreId, " +
+                    "f.FlexibilityValue, " +
+                    "w.FlexibilityId, " +
+                    "cn.CountryName, " +
+                    "w.CountryId, " +
+                    "w.Length, " +
+                    "w.Weight, " +
+                    "w.Price, " +
+                    "w.DateCreated " +
+                "FROM Wand AS w " +
+                "INNER JOIN CoreType AS ct ON ct.Id = w.CoreId " +
+                "INNER JOIN WoodType AS wt ON wt.Id = w.WoodId " +
+                "INNER JOIN Flexibility AS f ON f.Id = w.FlexibilityId " +
+                "INNER JOIN Country AS cn ON cn.Id = w.CountryId "
             ;
 
             try
@@ -198,6 +328,7 @@ namespace QuiteAFewWands
             return ds;
         }
 
+
         /**
          * Update the Product GridView. First get the data. Then look at the
          * class properties to see if we need to sort/filter it.
@@ -217,9 +348,29 @@ namespace QuiteAFewWands
             DataTable dt = ds.Tables[0];
             DataView dv = new DataView(dt);
 
-            if (ProductGridFilterVal != 0 && ProductGridFilterExpression != "")
+            String rf = "";
+
+            if (ProductGridWoodTypeFilterVal != 0)
             {
-                dv.RowFilter = ProductGridFilterExpression + " = " + ProductGridFilterVal;
+                rf += " WoodId = " + ProductGridWoodTypeFilterVal;
+            }
+            if (ProductGridCoreTypeFilterVal != 0)
+            {
+                rf += ((rf != "") ? " AND " : "") + " CoreId = " + ProductGridCoreTypeFilterVal;
+            }
+           
+            if (ProductGridFlexibilityFilterVal != 0)
+            {
+                rf += ((rf != "") ? " AND " : "") + " FlexibilityId = " + ProductGridFlexibilityFilterVal;
+            }
+            if (ProductGridCountryFilterVal != 0)
+            {
+                rf += ((rf != "") ? " AND " : "") + " CountryId = " + ProductGridCountryFilterVal;
+            }
+            
+            if (rf != "")
+            {
+                dv.RowFilter = rf;
             }
 
             if (ProductGridSortExpression != "")
@@ -238,12 +389,11 @@ namespace QuiteAFewWands
             ProductGrid.DataBind();
 
             ProductGrid.Visible = true;
-
         }
 
 
         /**
-         * This fills the wood type list.
+         * This fills the wood type sort list.
          */
         private void FillWoodTypeList()
         {
@@ -291,8 +441,9 @@ namespace QuiteAFewWands
             }
         }
 
+
         /**
-         * This fills the wood type list.
+         * This fills the wood type sort list.
          */
         private void FillCoreTypeList()
         {
@@ -326,6 +477,106 @@ namespace QuiteAFewWands
                         Value = rd["Id"].ToString()
                     };
                     CoreTypeList.Items.Add(newItem);
+                }
+                rd.Close();
+            }
+            catch (Exception Err)
+            {
+                DBErrMsg.InnerText += Err.ToString();
+                DBErrMsg.Visible = true;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
+        /**
+         * This fills the flexibility sort list.
+         */
+        private void FillFlexibilityList()
+        {
+            FlexibilityList.Items.Clear();
+
+            ListItem newItem = new ListItem
+            {
+                Text = "All",
+                Value = "0"
+            };
+            FlexibilityList.Items.Add(newItem);
+
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            String sql = "SELECT Id, FlexibilityValue FROM Flexibility";
+            SqlCommand cmd = new SqlCommand(sql, con);
+
+            SqlDataReader rd;
+
+            try
+            {
+                con.Open();
+                rd = cmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    newItem = new ListItem
+                    {
+                        Text = rd["FlexibilityValue"].ToString(),
+                        Value = rd["Id"].ToString()
+                    };
+                    FlexibilityList.Items.Add(newItem);
+                }
+                rd.Close();
+            }
+            catch (Exception Err)
+            {
+                DBErrMsg.InnerText += Err.ToString();
+                DBErrMsg.Visible = true;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
+        /**
+         * This fills the country sort list.
+         */
+        private void FillCountryList()
+        {
+            CountryList.Items.Clear();
+
+            ListItem newItem = new ListItem
+            {
+                Text = "All",
+                Value = "0"
+            };
+            CountryList.Items.Add(newItem);
+
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            String sql = "SELECT Id, CountryName FROM Country";
+            SqlCommand cmd = new SqlCommand(sql, con);
+
+            SqlDataReader rd;
+
+            try
+            {
+                con.Open();
+                rd = cmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    newItem = new ListItem
+                    {
+                        Text = rd["CountryName"].ToString(),
+                        Value = rd["Id"].ToString()
+                    };
+                    CountryList.Items.Add(newItem);
                 }
                 rd.Close();
             }

@@ -4,7 +4,7 @@
 <asp:Content ID="body" ContentPlaceHolderID="bodyContentPlaceholder" runat="server">
     <div class="non-semantic-protector">
         <h1 class="ribbon">
-            <span class="ribbon-content">heading 2</span>
+            <span class="ribbon-content">Browse Wands!</span>
         </h1>
     </div>
     <div class="body-content">
@@ -19,9 +19,9 @@
             CssClass="filter-lbl"></asp:Label>
         <asp:DropDownList 
             ID="WoodTypeList" 
-            OnSelectedIndexChanged="WoodType_OnSelectedIndexChanged" 
             runat="server"
             AutoPostBack="true"
+            OnSelectedIndexChanged="WoodType_OnSelectedIndexChanged"
             CssClass="form-dropdown filter-list"></asp:DropDownList>
         
         <asp:Label 
@@ -31,21 +31,34 @@
             CssClass="filter-lbl"></asp:Label>
         <asp:DropDownList 
             ID="CoreTypeList" 
-            OnSelectedIndexChanged="CoreType_OnSelectedIndexChanged" 
             runat="server"
             AutoPostBack="true"
+            OnSelectedIndexChanged="CoreType_OnSelectedIndexChanged"
             CssClass="form-dropdown filter-list"></asp:DropDownList>
 
         <asp:Label 
-            ID="Label2" 
+            ID="FlexibilityFilterLbl" 
             runat="server" 
-            Text="Filter By Wood Type:" 
+            Text="Filter By Flexibility:"
+            
             CssClass="filter-lbl"></asp:Label>
         <asp:DropDownList 
-            ID="DropDownList2" 
-            OnSelectedIndexChanged="WoodType_OnSelectedIndexChanged" 
+            ID="FlexibilityList" 
             runat="server"
             AutoPostBack="true"
+            OnSelectedIndexChanged="Flexibility_OnSelectedIndexChanged"
+            CssClass="form-dropdown filter-list"></asp:DropDownList>
+
+        <asp:Label 
+            ID="CountryFilterLbl" 
+            runat="server" 
+            Text="Filter By Country:" 
+            CssClass="filter-lbl"></asp:Label>
+        <asp:DropDownList 
+            ID="CountryList" 
+            runat="server"
+            AutoPostBack="true"
+            OnSelectedIndexChanged="Country_OnSelectedIndexChanged"
             CssClass="form-dropdown filter-list"></asp:DropDownList>
                 
         <asp:GridView 
@@ -61,27 +74,29 @@
             >
             <Columns>
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name"/>
-                <asp:BoundField DataField="Height" HeaderText="Height" SortExpression="Height"/>
-                <asp:BoundField DataField="Width" HeaderText="Width" SortExpression="Width"/>
-                <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:C}" SortExpression="Price"/>
-                <asp:BoundField DataField="Year" HeaderText="Year" SortExpression="Year"/>
-                <asp:BoundField DataField="Brand" HeaderText="Brand" SortExpression="Brand"/>
-                <asp:BoundField DataField="Category" HeaderText="Category" SortExpression="Category"/>
-                <asp:BoundField DataField="Description" HeaderText="Description" />
+                <asp:BoundField DataField="WoodTypeName" HeaderText="Wood Type" SortExpression="WoodTypeName"/>
+                <asp:BoundField DataField="CoreTypeName" HeaderText="Core Type" SortExpression="CoreTypeName"/>
+                <asp:BoundField DataField="FlexibilityValue" HeaderText="Flexibility" SortExpression="FlexibilityValue"/>
+                <asp:BoundField DataField="CountryName" HeaderText="Crafted In" SortExpression="CountryName"/>
+                <asp:BoundField DataField="Length" HeaderText="Length" SortExpression="Length"/>
+                <asp:BoundField DataField="Weight" HeaderText="Weight" SortExpression="Weight"/>
+                <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" DataFormatString="{0:C}" />
+                <asp:BoundField DataField="DateCreated" HeaderText="Date Crafted" SortExpression="DateCreated" />
                 <asp:HyperLinkField 
                     Text="View Comments" 
                     HeaderText="Comments" 
-                    DataNavigateUrlFormatString="ViewComments.aspx?ItemId={0}"
-                    DataNavigateUrlFields="ItemId"
+                    DataNavigateUrlFormatString="ViewComments.aspx?WandId={0}"
+                    DataNavigateUrlFields="WandId"
                     />
                 <asp:HyperLinkField 
                     Text="View Ratings" 
                     HeaderText="Ratings" 
-                    DataNavigateUrlFormatString="ViewRatings.aspx?ItemId={0}"
-                    DataNavigateUrlFields="ItemId"
+                    DataNavigateUrlFormatString="ViewRatings.aspx?WandId={0}"
+                    DataNavigateUrlFields="WandId"
                     />
             </Columns>
             <PagerStyle CssClass="product-grid-pager" />
+            <HeaderStyle CssClass="product-grid-header" />
         </asp:GridView>
     </form>
     </div>
