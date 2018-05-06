@@ -21,7 +21,7 @@
         <asp:ContentPlaceHolder ID="bodyContentPlaceholder" runat="server"></asp:ContentPlaceHolder>
     </div>
     <div class="footer-container">
-        <a href="#">links</a> | <a href="#">links</a> | <a href="#">links</a> | <a href="#">links</a> | <a href="#">links</a>
+        <a href="Default.aspx">Home</a> | <a href="#">links</a> | <a href="#">links</a> | <a href="#">links</a> | <a href="#">Login</a>
     </div>
 </body>
 </html>
