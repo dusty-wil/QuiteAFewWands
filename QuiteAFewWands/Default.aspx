@@ -8,7 +8,6 @@
         </h1>
     </div>
     <div class="body-content">
-    alskdasdjslkdjsdflk
     <form id="ProductGridForm" runat="server">
         <div id="OkMsg" class="message message-ok" runat="server"></div>
         <div id="DBErrMsg" class="message message-error" runat="server"></div>
