@@ -19,8 +19,13 @@ namespace QuiteAFewWands.Admin
             //make error lable not visible on page load
             Label1.Visible = false;
 
+
+
+
+
+
             //fill in CoreType DDL
-            fillCoreTypeList();
+            //fillCoreTypeList();
 
             // create connection object
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
