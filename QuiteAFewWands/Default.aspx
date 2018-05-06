@@ -47,9 +47,7 @@
             runat="server"
             AutoPostBack="true"
             CssClass="form-dropdown filter-list"></asp:DropDownList>
-        
-        <asp:Label ID="Label3" runat="server" Text="THIS IS JUST A TEST LABEL - SEEING HOW GIT WORKS"></asp:Label>
-        
+                
         <asp:GridView 
             ID="ProductGrid" 
             runat="server" 
