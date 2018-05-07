@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="headPlaceholder" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="bodyContentPlaceholder" runat="server">
-    <form id="form1" runat="server" visible="False">
+    <form id="form1" runat="server">
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Insert New Flexibility" />
 &nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button2" runat="server" Text="Update Existing Flexibility" />

@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="header-container">
-        <img src="images/header_logo_large.png"/>
+        <img src="../images/header_logo_large.png"/>
     </div>
     <div class="nav-container">
         <a href="#">admin links</a><a href="#">admin links</a><a href="#">admin links</a><a href="#">admin links</a><a href="#">admin links</a>
