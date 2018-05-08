@@ -15,13 +15,15 @@
         <img src="images/header_logo_large.png"/>
     </div>
     <div class="nav-container">
-        <a href="#">links</a><a href="#">links</a><a href="#">links</a><a href="#">links</a><a href="#">links</a>
+        <a href="Default.aspx">Search</a>
+        <a href="ViewCart.aspx">View Cart <span class="cart-count"><%:  ((Session["cart"] == null || ((List<int>)Session["cart"]).Count == 0) ? 0 : ((List<int>)Session["cart"]).Count) %></span></a>
+        <a href="Login.aspx">Log In</a>
     </div>
     <div class="content-container">
         <asp:ContentPlaceHolder ID="bodyContentPlaceholder" runat="server"></asp:ContentPlaceHolder>
     </div>
     <div class="footer-container">
-        <a href="#">links</a> | <a href="#">links</a> | <a href="#">links</a> | <a href="#">links</a> | <a href="#">links</a>
+        <a href="Default.aspx">Search</a> | <a href="ViewCart.aspx">ViewCart</a> | <a href="Login.aspx">Log In</a>
     </div>
 </body>
 </html>

@@ -71,6 +71,9 @@
     <Content Include="Admin\AddEditUser.aspx" />
     <Content Include="Admin\AddEditWand.aspx" />
     <Content Include="Admin\AddEditWoodType.aspx" />
+    <Content Include="images\empty_star.png" />
+    <Content Include="images\full_star.png" />
+    <Content Include="images\half_star.png" />
     <Content Include="SiteMaster.Master" />
     <Content Include="AdminMaster.Master" />
     <None Include="packages.config" />
@@ -92,6 +95,9 @@
     <Content Include="images\header_logo.png" />
     <Content Include="images\header_logo_large.png" />
     <Content Include="images\header_logo_long.png" />
+    <Content Include="ViewComments.aspx" />
+    <Content Include="ViewItemDetails.aspx" />
+    <Content Include="ViewRatings.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -154,6 +160,27 @@
       <DependentUpon>SiteMaster.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewComments.aspx.cs">
+      <DependentUpon>ViewComments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewComments.aspx.designer.cs">
+      <DependentUpon>ViewComments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewItemDetails.aspx.cs">
+      <DependentUpon>ViewItemDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewItemDetails.aspx.designer.cs">
+      <DependentUpon>ViewItemDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewRatings.aspx.cs">
+      <DependentUpon>ViewRatings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewRatings.aspx.designer.cs">
+      <DependentUpon>ViewRatings.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

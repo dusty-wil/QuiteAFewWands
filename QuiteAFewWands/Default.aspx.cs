@@ -156,8 +156,20 @@ namespace QuiteAFewWands
                 FillCountryList();
 
                 UpdateProductGridView();
+
+                if (Request.QueryString["AddWandToCart"] != null) {
+
+                    int pickedWand = 0;
+                    if (int.TryParse(Request.QueryString["AddWandToCart"], out pickedWand))
+                    {
+                        if (pickedWand > 0)
+                        {
+                            AddWandToCart(pickedWand);
+                        }
+                    }
+                }
             }
-            
+
         }
 
 
@@ -270,6 +282,16 @@ namespace QuiteAFewWands
         }
 
 
+        protected void ProductGV_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                // GetAvgRatingForWand(int WandId)
+                // GetNumCommentsForWand(int WandId)
+            }
+        }
+
+
         /**
          * Base function to retrieve product data for the grid
          * returns a DataSet for manipulation
@@ -284,6 +306,7 @@ namespace QuiteAFewWands
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
 
+            /*
             String sql =
                 "SELECT " +
                     "w.Id WandId, " +
@@ -305,6 +328,30 @@ namespace QuiteAFewWands
                 "INNER JOIN WoodType AS wt ON wt.Id = w.WoodId " +
                 "INNER JOIN Flexibility AS f ON f.Id = w.FlexibilityId " +
                 "INNER JOIN Country AS cn ON cn.Id = w.CountryId "
+            ;
+            */
+
+            String sql =
+                "SELECT " +
+                    "w.Id WandId, " +
+                    "w.Name,  " +
+                    "wt.WoodTypeName, " +
+                    "ct.CoreTypeName, " +
+                    "f.FlexibilityValue, " +
+                    "cn.CountryName,  " +
+                    "w.Price,  " +
+                    "ISNULL(AVG(r.Value), 0) AvgRating, " +
+                    "COUNT(Distinct c.Id) CommentCount " +
+                "FROM Wand AS w " +
+                "INNER JOIN CoreType AS ct ON ct.Id = w.CoreId " +
+                "INNER JOIN WoodType AS wt ON wt.Id = w.WoodId " +
+                "INNER JOIN Flexibility AS f ON f.Id = w.FlexibilityId " +
+                "INNER JOIN Country AS cn ON cn.Id = w.CountryId " +
+                "LEFT JOIN Rating AS r ON r.WandId = w.Id " +
+                "LEFT JOIN Comment AS c ON c.WandId = w.Id " +
+                "GROUP BY " +
+                    "w.Id, Name, WoodTypeName, CoreTypeName, " +
+                    "FlexibilityValue, CountryName, Price "
             ;
 
             try
@@ -577,6 +624,136 @@ namespace QuiteAFewWands
                         Value = rd["Id"].ToString()
                     };
                     CountryList.Items.Add(newItem);
+                }
+                rd.Close();
+            }
+            catch (Exception Err)
+            {
+                DBErrMsg.InnerText += Err.ToString();
+                DBErrMsg.Visible = true;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        /**
+         * maybe need this for something later
+         * 
+         */
+        private float GetAvgRatingForWand(int WandId)
+        {
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            String sql = "SELECT AVG(Value) AS AvgRating FROM Rating WHERE WandId = @WandId";
+            SqlCommand cmd = new SqlCommand(sql, con);
+
+            SqlDataReader rd;
+
+            float avg = 0;
+
+            try
+            {
+                con.Open();
+                cmd.Parameters.AddWithValue("@WandId", WandId);
+                rd = cmd.ExecuteReader();
+
+                if (rd.Read())
+                {
+                    float.TryParse(rd["AvgRating"].ToString(), out avg);
+                }
+                rd.Close();
+            }
+            catch (Exception Err)
+            {
+                DBErrMsg.InnerText += Err.ToString();
+                DBErrMsg.Visible = true;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return avg;
+        }
+
+
+        /**
+         * maybe need this for something later
+         * 
+         */ 
+        private int GetNumCommentsForWand(int WandId)
+        {
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            String sql = "SELECT COUNT(WandId) AS NumComments FROM Comment WHERE WandId = @WandId";
+            SqlCommand cmd = new SqlCommand(sql, con);
+
+            SqlDataReader rd;
+
+            int cnt = 0;
+
+            try
+            {
+                con.Open();
+                cmd.Parameters.AddWithValue("@WandId", WandId);
+                rd = cmd.ExecuteReader();
+
+                if (rd.Read())
+                {
+                    int.TryParse(rd["NumComments"].ToString(), out cnt);
+                }
+                rd.Close();
+            }
+            catch (Exception Err)
+            {
+                DBErrMsg.InnerText += Err.ToString();
+                DBErrMsg.Visible = true;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return cnt;
+        }
+
+        /**
+         * checks to see if session cart exists. If so, add
+         * wand to cart. otherwise create new cart
+         */
+        private void AddWandToCart(int WandId)
+        {
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            String sql = "SELECT Name FROM Wand WHERE Id = @WandId";
+            SqlCommand cmd = new SqlCommand(sql, con);
+
+            SqlDataReader rd;
+            
+            try
+            {
+                con.Open();
+                cmd.Parameters.AddWithValue("@WandId", WandId);
+                rd = cmd.ExecuteReader();
+
+                if (rd.Read())
+                {
+                    // yep we found a wand
+                    List<int> tmpList = (Session["cart"] != null) ? 
+                        (List<int>)Session["cart"] :
+                        new List<int>()
+                    ;
+
+                    tmpList.Add(WandId);
+                    Session["cart"] = tmpList;
+
+                    OkMsg.InnerText = "Added wand " + rd["Name"] + " to cart";
+                    OkMsg.Visible = true;
                 }
                 rd.Close();
             }

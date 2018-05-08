@@ -71,6 +71,7 @@
             PageSize="5"
             OnPageIndexChanging="ProductGV_PageIndexChanging"
             OnSorting="ProductGV_Sorting"
+                        OnRowDataBound="ProductGV_RowDataBound"
             >
             <Columns>
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name"/>
@@ -78,20 +79,33 @@
                 <asp:BoundField DataField="CoreTypeName" HeaderText="Core Type" SortExpression="CoreTypeName"/>
                 <asp:BoundField DataField="FlexibilityValue" HeaderText="Flexibility" SortExpression="FlexibilityValue"/>
                 <asp:BoundField DataField="CountryName" HeaderText="Crafted In" SortExpression="CountryName"/>
-                <asp:BoundField DataField="Length" HeaderText="Length" SortExpression="Length"/>
-                <asp:BoundField DataField="Weight" HeaderText="Weight" SortExpression="Weight"/>
                 <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" DataFormatString="{0:C}" />
-                <asp:BoundField DataField="DateCreated" HeaderText="Date Crafted" SortExpression="DateCreated" />
                 <asp:HyperLinkField 
-                    Text="View Comments" 
-                    HeaderText="Comments" 
+                    HeaderText="Comments"
+                    DataTextField="CommentCount"
+                    DataTextFormatString="{0}"
+                    SortExpression="AvgRating"
                     DataNavigateUrlFormatString="ViewComments.aspx?WandId={0}"
                     DataNavigateUrlFields="WandId"
                     />
                 <asp:HyperLinkField 
-                    Text="View Ratings" 
-                    HeaderText="Ratings" 
+                    HeaderText="Avg. Rating" 
+                    DataTextField="AvgRating"
+                    SortExpression="CommentCount"
+                    DataTextFormatString="{0}"
                     DataNavigateUrlFormatString="ViewRatings.aspx?WandId={0}"
+                    DataNavigateUrlFields="WandId"
+                    />
+                <asp:HyperLinkField 
+                    Text="View Item" 
+                    HeaderText="Item Details" 
+                    DataNavigateUrlFormatString="ViewItemDetails.aspx?WandId={0}"
+                    DataNavigateUrlFields="WandId"
+                    />
+                <asp:HyperLinkField 
+                    Text="+" 
+                    HeaderText="Add To Cart" 
+                    DataNavigateUrlFormatString="Default.aspx?AddWandToCart={0}"
                     DataNavigateUrlFields="WandId"
                     />
             </Columns>
