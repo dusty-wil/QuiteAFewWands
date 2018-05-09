@@ -130,22 +130,16 @@ namespace QuiteAFewWands.Admin
             {
                 con.Close();
             }
-           
-            
-
-
-
-
-
-
-
-
-
-
-
+          
 
            
         }
+
+
+
+
+
+
 
         protected void deleteFlex_Click(object sender, EventArgs e)
         {
@@ -165,7 +159,7 @@ namespace QuiteAFewWands.Admin
             //create parameter object and add its value
             SqlParameter param1 = new SqlParameter();
             param1.ParameterName = "@flexValue";
-            param1.Value = flexValueDDL.SelectedValue;
+            param1.Value = flexValueDDL.SelectedItem.Text;
             cmd.Parameters.Add(param1);
            
 
