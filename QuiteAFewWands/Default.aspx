@@ -103,7 +103,7 @@
                     DataNavigateUrlFields="WandId"
                     />
                 <asp:HyperLinkField 
-                    Text="+" 
+                    Text="Add" 
                     HeaderText="Add To Cart" 
                     DataNavigateUrlFormatString="Default.aspx?AddWandToCart={0}"
                     DataNavigateUrlFields="WandId"
