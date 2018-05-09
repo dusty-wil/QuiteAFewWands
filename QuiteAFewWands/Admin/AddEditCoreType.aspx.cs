@@ -204,7 +204,7 @@ namespace QuiteAFewWands.Admin
             SqlConnection con = new SqlConnection(connectionString);
 
             //create as CommandBehavior object
-            String cmdString = "DELETE FROM [CORETYPE] WHERE CoreTypeName = @CTypeName ";
+            String cmdString = "DELETE FROM [CORETYPE] WHERE CoreTypeName = @CTypeName";
             SqlCommand cmd = new SqlCommand(cmdString, con);
 
             //create parameter object and add its value
