@@ -95,6 +95,7 @@
     <Content Include="images\header_logo.png" />
     <Content Include="images\header_logo_large.png" />
     <Content Include="images\header_logo_long.png" />
+    <Content Include="ViewCart.aspx" />
     <Content Include="ViewComments.aspx" />
     <Content Include="ViewItemDetails.aspx" />
     <Content Include="ViewRatings.aspx" />
@@ -160,6 +161,13 @@
       <DependentUpon>SiteMaster.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewCart.aspx.cs">
+      <DependentUpon>ViewCart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewCart.aspx.designer.cs">
+      <DependentUpon>ViewCart.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewComments.aspx.cs">
       <DependentUpon>ViewComments.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

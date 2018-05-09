@@ -169,7 +169,6 @@ namespace QuiteAFewWands
                     }
                 }
             }
-
         }
 
 
@@ -336,9 +335,13 @@ namespace QuiteAFewWands
                     "w.Id WandId, " +
                     "w.Name,  " +
                     "wt.WoodTypeName, " +
+                    "w.WoodId, " +
                     "ct.CoreTypeName, " +
+                    "w.CoreId, " +
                     "f.FlexibilityValue, " +
+                    "w.FlexibilityId, " +
                     "cn.CountryName,  " +
+                    "w.CountryId, " +
                     "w.Price,  " +
                     "ISNULL(AVG(r.Value), 0) AvgRating, " +
                     "COUNT(Distinct c.Id) CommentCount " +
@@ -350,8 +353,9 @@ namespace QuiteAFewWands
                 "LEFT JOIN Rating AS r ON r.WandId = w.Id " +
                 "LEFT JOIN Comment AS c ON c.WandId = w.Id " +
                 "GROUP BY " +
-                    "w.Id, Name, WoodTypeName, CoreTypeName, " +
-                    "FlexibilityValue, CountryName, Price "
+                    "w.Id, Name, WoodTypeName, WoodId, CoreTypeName, " +
+                    "CoreId, FlexibilityValue, FlexibilityId, " +
+                    "CountryName, CountryId, Price "
             ;
 
             try
@@ -756,6 +760,60 @@ namespace QuiteAFewWands
                     OkMsg.Visible = true;
                 }
                 rd.Close();
+            }
+            catch (Exception Err)
+            {
+                DBErrMsg.InnerText += Err.ToString();
+                DBErrMsg.Visible = true;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void AddUser()
+        {
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            String sql = "INSERT INTO [User] ( " + 
+                "UserName, " + 
+                "Password, " + 
+                "FirstName, " + 
+                "LastName, " + 
+                "Email, " + 
+                "HouseId, " + 
+                "IsAdmin, " + 
+                "DateAdded, " + 
+                "DateLastLogin " +
+            " ) VALUES ( " +
+                "@UserName, " +
+                "HASHBYTES('SHA2_256', @Password), " +
+                "@FirstName, " +
+                "@LastName, " +
+                "@Email, " +
+                "@HouseId, " +
+                "@IsAdmin, " +
+                "SYSDATETIME(), " +
+                "SYSDATETIME() " +
+            " ) "
+            ;
+            SqlCommand cmd = new SqlCommand(sql, con);
+
+            try
+            {
+                con.Open();
+
+                cmd.Parameters.AddWithValue("@UserName", "wil7722");
+                cmd.Parameters.AddWithValue("@Password", "abc123");
+                cmd.Parameters.AddWithValue("@FirstName", "Dusty");
+                cmd.Parameters.AddWithValue("@LastName", "Williams");
+                cmd.Parameters.AddWithValue("@Email", "wil7722@calu.edu");
+                cmd.Parameters.AddWithValue("@HouseId", "2");
+                cmd.Parameters.AddWithValue("@IsAdmin", "1");
+
+                cmd.ExecuteNonQuery();
             }
             catch (Exception Err)
             {
