@@ -21,7 +21,9 @@
         <asp:ContentPlaceHolder ID="bodyContentPlaceholder" runat="server"></asp:ContentPlaceHolder>
     </div>
     <div class="footer-container">
-        <a href="Default.aspx">Home</a> | <a href="#">links</a> | <a href="#">links</a> | <a href="#">links</a> | <a href="#">Login</a>
+        This is a collaborative project for CIS 332, section GO1 at California University of Pennsylvania during the Spring Semester of 2018.<br />
+        All students listed below contributed equally to this project. Details about the project can be found on <a href="https://github.com/dusty-wil/QuiteAFewWands" target="_blank">GitHub</a>.<br />
+        <b>Fatima Laghrissi LAG5647@calu.edu | Lauren Woods WOO4347@calu.edu | Dusty Williams WIL7722@calu.edu</b>
     </div>
 </body>
 </html>
