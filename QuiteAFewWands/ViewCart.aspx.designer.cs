@@ -40,12 +40,21 @@ namespace QuiteAFewWands {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DBErrMsg;
         
         /// <summary>
-        /// CartList control.
+        /// CartListRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList CartList;
+        protected global::System.Web.UI.WebControls.Repeater CartListRepeater;
+        
+        /// <summary>
+        /// TotalLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TotalLbl;
     }
 }
