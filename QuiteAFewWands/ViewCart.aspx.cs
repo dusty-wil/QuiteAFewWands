@@ -15,20 +15,14 @@ namespace QuiteAFewWands
         private List<int> SessionCart;
         private List<CartItem> CartItems;
 
+
         protected void Page_Load(object sender, EventArgs e)
         {
             OkMsg.Visible = false;
             DBErrMsg.Visible = false;
 
             if (!IsPostBack)
-            {
-
-                // I don't really like this; maybe there's a cleaner way
-
-                Dictionary<int, int> cartCounts = new Dictionary<int, int>();
-                Dictionary<int, string> cartNames = new Dictionary<int, string>();
-                Dictionary<int, float> cartPrices = new Dictionary<int, float>();
-
+            { 
                 CartItems = new List<CartItem>();
 
                 if (Session["cart"] != null)
@@ -45,29 +39,7 @@ namespace QuiteAFewWands
                             }
                         }
 
-                        foreach (int w in SessionCart)
-                        {
-                            if (cartCounts.ContainsKey(w))
-                            {
-                                cartCounts[w] += 1;
-                            }
-                            else
-                            {
-                                cartCounts.Add(w, 1);
-                                getNameAndPriceForWand(w, cartNames, cartPrices);
-                            }
-                        }
-
-                        foreach (int item in SessionCart.Distinct())
-                        {
-                            CartItem ci = new CartItem();
-                            ci.ItemId = item;
-                            ci.ItemName = cartNames[item];
-                            ci.ItemPrice = cartPrices[item];
-                            ci.Quantity = cartCounts[item];
-
-                            CartItems.Add(ci);
-                        }
+                        GenerateCartItemsFromSession();   
                     }
                 }
                 else
@@ -80,7 +52,46 @@ namespace QuiteAFewWands
             UpdateCartTotal();
         }
 
-        private void getNameAndPriceForWand(int WandId, Dictionary<int, string> cartNames, Dictionary<int, float> cartPrices)
+
+        /**
+         * This is messy and I don't like it. But, I can't think of a better way right now
+         * Session['cart'] is a list of ints. There are duplicates, IE more than one of that
+         * item is being ordered. So, break them down to unique instances, get names and 
+         * prices, store in a list of classes
+         */ 
+        private void GenerateCartItemsFromSession()
+        {
+            Dictionary<int, int> cartCounts = new Dictionary<int, int>();
+            Dictionary<int, string> cartNames = new Dictionary<int, string>();
+            Dictionary<int, float> cartPrices = new Dictionary<int, float>();
+
+            foreach (int w in SessionCart)
+            {
+                if (cartCounts.ContainsKey(w))
+                {
+                    cartCounts[w] += 1;
+                }
+                else
+                {
+                    cartCounts.Add(w, 1);
+                    GetNameAndPriceForWand(w, cartNames, cartPrices);
+                }
+            }
+
+            foreach (int item in SessionCart.Distinct())
+            {
+                CartItem ci = new CartItem();
+                ci.ItemId = item;
+                ci.ItemName = cartNames[item];
+                ci.ItemPrice = cartPrices[item];
+                ci.Quantity = cartCounts[item];
+
+                CartItems.Add(ci);
+            }
+        }
+
+
+        private void GetNameAndPriceForWand(int WandId, Dictionary<int, string> cartNames, Dictionary<int, float> cartPrices)
         {
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
@@ -118,10 +129,15 @@ namespace QuiteAFewWands
             }
         }
 
+
+        /**
+         * this is probably unnecessary, but in case things get more complicated later...
+         */
         private void RemoveWandFromCart(int WandId)
         {
             SessionCart.Remove(WandId);
         }
+
 
         private void UpdateCartTotal()
         {
@@ -130,8 +146,12 @@ namespace QuiteAFewWands
             {
                 total += (item.Quantity * item.ItemPrice);
             }
+
+            CheckoutBtn.Visible = (total > 0);
+
             TotalLbl.Text = String.Format("{0:C}", total.ToString());
         }
+
 
         private void UpdateCartList()
         {

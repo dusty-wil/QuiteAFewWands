@@ -71,6 +71,7 @@
     <Content Include="Admin\AddEditUser.aspx" />
     <Content Include="Admin\AddEditWand.aspx" />
     <Content Include="Admin\AddEditWoodType.aspx" />
+    <Content Include="Checkout.aspx" />
     <Content Include="images\empty_star.png" />
     <Content Include="images\full_star.png" />
     <Content Include="images\half_star.png" />
@@ -147,6 +148,13 @@
       <DependentUpon>AddEditWoodType.aspx</DependentUpon>
     </Compile>
     <Compile Include="CartItem.cs" />
+    <Compile Include="Checkout.aspx.cs">
+      <DependentUpon>Checkout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Checkout.aspx.designer.cs">
+      <DependentUpon>Checkout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

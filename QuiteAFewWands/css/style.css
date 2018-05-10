@@ -95,6 +95,12 @@ body
     font-size: 20px;
 }
 
+
+/*****************
+ * search page
+ ****************/
+
+
 .filter-lbl
 {
     display: inline-block;
@@ -111,7 +117,6 @@ body
     width: 30%;
     margin: 5px;
 }
-
 
 .product-grid 
 {
@@ -176,11 +181,17 @@ body
     text-align: right;
 }
 
+
+/*****************
+ * cart page
+ ****************/
+
+
 .cart-list 
 {
     font-size: 36px;
     border-bottom: 5px solid #2D2327;
-    margin: 20px 150px;
+    margin: 20px 130px;
 }
 
 .cart-item-name 
@@ -216,21 +227,15 @@ body
     width: 30px;
 }
 
-.cart-item-remove
+.cart-item-remove a 
 {
-
-}
-
-.cart-item-remove a {
     font-weight: bold;
     color: #B87D4B;
     font-size: 20px;
     display: inline-block;
     vertical-align: middle;
     margin-bottom: 10px;
-    margin-left: 20px;
 }
-
 
 .cart-total-container 
 {
@@ -251,7 +256,142 @@ body
 }
 
 
-.cta-btn {
+/*****************
+ * comment page
+ ****************/
+
+
+.comment-list 
+{
+    list-style-type: none;
+    margin: 20px 250px;
+}
+
+.comment-list li
+{
+    margin: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #2D2327;
+}
+
+.comment-title
+{
+    font-size: 30px;
+    display: block;
+}
+
+.comment-author
+{
+    display: inline-block;
+    font-weight: bold;
+}
+
+.comment-date
+{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.comment-text
+{
+    padding: 10px;
+    display: block;
+}
+
+
+/*****************
+ * rating page
+ ****************/
+
+
+.rating-spacer
+{
+    margin: 20px 200px;
+}
+
+.rating-grid 
+{
+    border: 1px solid #B87D4B;
+    font-size: 14px;
+    font-family: serif;
+    width: 100%;
+}
+
+.rating-grid th 
+{
+    padding: 10px;
+}
+
+.rating-grid-header 
+{
+    background-color: #B87D4B;
+    color: #E0DDCF;
+    padding: 10px;
+    border: 0;
+}
+
+.rating-grid-footer 
+{
+    font-weight: bold;
+}
+
+.rating-grid td {
+    padding: 10px;
+    border: 0;
+    text-align: center;
+}
+
+.rating-grid tr:nth-child(even) {
+    background-color: #D7D5CD;
+}
+
+
+/*****************
+ * item deet page
+ ****************/
+
+
+.item-detail-list 
+{
+    list-style-type: none;
+    margin: 20px 250px;
+    font-size: 30px;
+}
+
+.item-detail-list li 
+{
+    margin: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #2D2327;
+}
+
+
+.item-detail-label 
+{
+    display: inline-block;
+    font-weight: bold;
+    width: 230px;
+}
+
+.item-detail-value
+{
+    display: inline-block;
+}
+
+.item-detail-btn
+{
+    width: 100%;
+    text-align: right;
+    display: block;
+}
+
+/*****************
+ * buttons
+ ****************/
+
+
+.cta-btn 
+{
     display: inline-block;
     padding: 5px 15px;
     font-size: 36px;
@@ -265,6 +405,12 @@ body
     background-color: #7D4D24;
 }
 
+
+/*****************
+ * ribbon
+ ****************/
+
+
 .non-semantic-protector 
 {
     position: relative;
@@ -275,7 +421,7 @@ body
 {
     font-size: 36px !important;
     font-family: 'Fredericka the Great', cursive, serif;
-    width: 35%;
+    width: 45%;
     position: relative;
     background-color: #B87D4B;
     color: #E0DDCF;
@@ -329,6 +475,12 @@ body
     right: 0;
     border-width: 1em 1em 0 0;
 }
+
+
+/*****************
+ * messages
+ ****************/
+
 
 .message 
 {

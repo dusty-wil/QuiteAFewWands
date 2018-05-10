@@ -6,7 +6,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="bodyContentPlaceholder" runat="server">
     <div class="non-semantic-protector">    
         <h1 class="ribbon">
-            <span class="ribbon-content">View Cart!</span>
+            <span class="ribbon-content">Ready to check out?</span>
         </h1>
     </div>
     <div class="body-content">
@@ -32,7 +32,7 @@
             </ul>
             <div class="cart-total-container">
                 Total: $<asp:Label ID="TotalLbl" runat="server" Text="0.00" CssClass="cart-total-val"></asp:Label>
-                <a href="Checkout.aspx" class="cta-btn">Checkout</a>
+                <a href="Checkout.aspx" class="cta-btn" runat="server" id="CheckoutBtn">Checkout</a>
             </div>
             <div class="cart-checkout-container"></div>
         </form>

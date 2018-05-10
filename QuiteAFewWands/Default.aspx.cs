@@ -280,7 +280,11 @@ namespace QuiteAFewWands
             UpdateProductGridView();
         }
 
-
+        
+        /**
+         * TODO Handle showing stars for rating and/or hide comments link if none here
+         *  
+         */
         protected void ProductGV_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -304,31 +308,6 @@ namespace QuiteAFewWands
 
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
-
-            /*
-            String sql =
-                "SELECT " +
-                    "w.Id WandId, " +
-                    "w.Name, " +
-                    "wt.WoodTypeName, " +
-                    "w.WoodId, " +
-                    "ct.CoreTypeName, " +
-                    "w.CoreId, " +
-                    "f.FlexibilityValue, " +
-                    "w.FlexibilityId, " +
-                    "cn.CountryName, " +
-                    "w.CountryId, " +
-                    "w.Length, " +
-                    "w.Weight, " +
-                    "w.Price, " +
-                    "w.DateCreated " +
-                "FROM Wand AS w " +
-                "INNER JOIN CoreType AS ct ON ct.Id = w.CoreId " +
-                "INNER JOIN WoodType AS wt ON wt.Id = w.WoodId " +
-                "INNER JOIN Flexibility AS f ON f.Id = w.FlexibilityId " +
-                "INNER JOIN Country AS cn ON cn.Id = w.CountryId "
-            ;
-            */
 
             String sql =
                 "SELECT " +
