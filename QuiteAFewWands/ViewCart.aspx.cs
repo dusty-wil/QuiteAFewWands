@@ -12,11 +12,8 @@ namespace QuiteAFewWands
 {
     public partial class ViewCart : System.Web.UI.Page
     {
-        private List<int> _cart;
-        private Dictionary<int, int> _cartCounts;
-        private Dictionary<int, string> _cartNames;
-        private Dictionary<int, float> _cartPrices;
-
+        private List<int> SessionCart;
+        private List<CartItem> CartItems;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,39 +22,65 @@ namespace QuiteAFewWands
 
             if (!IsPostBack)
             {
-                _cartCounts = new Dictionary<int, int>();
-                _cartNames = new Dictionary<int, string>();
-                _cartPrices = new Dictionary<int, float>();
+
+                // I don't really like this; maybe there's a cleaner way
+
+                Dictionary<int, int> cartCounts = new Dictionary<int, int>();
+                Dictionary<int, string> cartNames = new Dictionary<int, string>();
+                Dictionary<int, float> cartPrices = new Dictionary<int, float>();
+
+                CartItems = new List<CartItem>();
 
                 if (Session["cart"] != null)
                 {
-                    _cart = (List<int>)Session["cart"];
-                    if (_cart.Capacity > 0)
+                    SessionCart = (List<int>)Session["cart"];
+                    if (SessionCart.Capacity > 0)
                     {
-                        foreach (int w in _cart)
+                        int removeWand = 0;
+                        if (int.TryParse(Request.QueryString["RemoveWandFromCart"], out removeWand))
                         {
-                            if (_cartCounts.ContainsKey(w))
+                            if (removeWand > 0)
                             {
-                                _cartCounts[w] += 1;
+                                RemoveWandFromCart(removeWand);
+                            }
+                        }
+
+                        foreach (int w in SessionCart)
+                        {
+                            if (cartCounts.ContainsKey(w))
+                            {
+                                cartCounts[w] += 1;
                             }
                             else
                             {
-                                _cartCounts.Add(w, 1);
-                                getNameAndPriceForWand(w);
+                                cartCounts.Add(w, 1);
+                                getNameAndPriceForWand(w, cartNames, cartPrices);
                             }
+                        }
+
+                        foreach (int item in SessionCart.Distinct())
+                        {
+                            CartItem ci = new CartItem();
+                            ci.ItemId = item;
+                            ci.ItemName = cartNames[item];
+                            ci.ItemPrice = cartPrices[item];
+                            ci.Quantity = cartCounts[item];
+
+                            CartItems.Add(ci);
                         }
                     }
                 }
                 else
                 {
-                    _cart = new List<int>();
+                    SessionCart = new List<int>();
                 }
             }
 
             UpdateCartList();
+            UpdateCartTotal();
         }
 
-        private void getNameAndPriceForWand(int WandId)
+        private void getNameAndPriceForWand(int WandId, Dictionary<int, string> cartNames, Dictionary<int, float> cartPrices)
         {
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
@@ -75,12 +98,12 @@ namespace QuiteAFewWands
 
                 if (rd.Read())
                 {
-                    _cartNames.Add(WandId, rd["Name"].ToString());
+                    cartNames.Add(WandId, rd["Name"].ToString());
 
                     float price = 0;
 
                     float.TryParse(rd["Price"].ToString(), out price);
-                    _cartPrices.Add(WandId, price);
+                    cartPrices.Add(WandId, price);
                 }
                 rd.Close();
             }
@@ -95,19 +118,33 @@ namespace QuiteAFewWands
             }
         }
 
+        private void RemoveWandFromCart(int WandId)
+        {
+            SessionCart.Remove(WandId);
+        }
+
+        private void UpdateCartTotal()
+        {
+            float total = 0;
+            foreach (CartItem item in CartItems)
+            {
+                total += (item.Quantity * item.ItemPrice);
+            }
+            TotalLbl.Text = String.Format("{0:C}", total.ToString());
+        }
+
         private void UpdateCartList()
         {
-            if (_cart.Capacity == 0)
-            {
-                return;
-            }
+            // if (SessionCart.Capacity == 0)
+            // {
+            //     return;
+            // }
 
-            foreach (int item in _cart.Distinct())
-            {
-                ListItem li = new ListItem();
-                li.Text = _cartNames[item] + " - " + _cartPrices[item] + " x " + _cartCounts[item];
-                CartList.Items.Add(li);
-            }
+            // foreach (int item in SessionCart.Distinct())
+            // {
+                CartListRepeater.DataSource = CartItems;
+                CartListRepeater.DataBind();
+            // }
         }
     }
 }

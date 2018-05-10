@@ -146,6 +146,7 @@
     <Compile Include="Admin\AddEditWoodType.aspx.designer.cs">
       <DependentUpon>AddEditWoodType.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CartItem.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
