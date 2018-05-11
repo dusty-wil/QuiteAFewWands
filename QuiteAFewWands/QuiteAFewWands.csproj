@@ -71,10 +71,13 @@
     <Content Include="Admin\AddEditUser.aspx" />
     <Content Include="Admin\AddEditWand.aspx" />
     <Content Include="Admin\AddEditWoodType.aspx" />
+    <Content Include="Admin\AdminDefault.aspx" />
     <Content Include="Checkout.aspx" />
     <Content Include="images\empty_star.png" />
     <Content Include="images\full_star.png" />
     <Content Include="images\half_star.png" />
+    <Content Include="Login.aspx" />
+    <Content Include="Register.aspx" />
     <Content Include="SiteMaster.Master" />
     <Content Include="AdminMaster.Master" />
     <None Include="packages.config" />
@@ -147,6 +150,13 @@
     <Compile Include="Admin\AddEditWoodType.aspx.designer.cs">
       <DependentUpon>AddEditWoodType.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\AdminDefault.aspx.cs">
+      <DependentUpon>AdminDefault.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminDefault.aspx.designer.cs">
+      <DependentUpon>AdminDefault.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CartItem.cs" />
     <Compile Include="Checkout.aspx.cs">
       <DependentUpon>Checkout.aspx</DependentUpon>
@@ -162,6 +172,20 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SiteMaster.Master.cs">
       <DependentUpon>SiteMaster.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -170,6 +194,7 @@
       <DependentUpon>SiteMaster.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="ViewCart.aspx.cs">
       <DependentUpon>ViewCart.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

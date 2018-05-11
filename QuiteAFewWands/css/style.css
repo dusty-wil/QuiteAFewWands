@@ -261,6 +261,7 @@ body
  * checkout page
  ****************/
 
+
 .checkout-form-content 
 {
     margin: 20px 130px;
@@ -344,6 +345,53 @@ body
 .checkout-col2
 {
     text-align: left;
+}
+
+
+/*****************
+ * registration page
+ ****************/
+
+
+.registration-panel 
+{
+    border: 1px solid #2D2327;
+    margin: 20px 350px;
+    padding: 20px;
+}
+
+.registration-form-lbl 
+{
+    display: inline-block;
+    width: 175px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+
+/*****************
+ * login page
+ ****************/
+
+
+.login-panel 
+{
+    border: 1px solid #2D2327;
+    margin: 20px 350px;
+    padding: 20px;
+    text-align: center;
+}
+
+.login-panel a 
+{
+    color: #B87D4B;
+}
+
+.login-form-lbl 
+{
+    display: inline-block;
+    text-align: right;
+    margin-right: 5px;
 }
 
 
@@ -504,7 +552,7 @@ body
 .formfield-text 
 {
     border-bottom: 1px dashed #2D2327;
-    padding: 5px;
+    padding: 8px;
     display: inline-block;
     border-top: 0;
     border-left: 0;
@@ -512,6 +560,11 @@ body
     background-color: #F0EDDF;
 }
 
+.spacer
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 /*****************
  * ribbon

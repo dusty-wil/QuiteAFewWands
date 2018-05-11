@@ -35,29 +35,37 @@
 
                 <div class="checkout-col1" runat="server" id="CheckoutCol1">
                     <asp:Label CssClass="checkout-form-lbl" ID="FirstNameLbl" runat="server" Text="First Name:"></asp:Label>
-                    <asp:TextBox CssClass="formfield-text" ID="FirstNameTxtBox" runat="server"></asp:TextBox><br />
+                    <asp:TextBox CssClass="formfield-text" ID="FirstNameTxtBox" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="FirstNameTxtBox" ForeColor="Red">*</asp:RequiredFieldValidator><br />
 
                     <asp:Label CssClass="checkout-form-lbl" ID="LastNameLbl" runat="server" Text="Last Name:"></asp:Label>
-                    <asp:TextBox CssClass="formfield-text" ID="LastNameTxtBox" runat="server"></asp:TextBox><br />
+                    <asp:TextBox CssClass="formfield-text" ID="LastNameTxtBox" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="LastNameTxtBox" ForeColor="Red">*</asp:RequiredFieldValidator><br />
             
                     <asp:Label CssClass="checkout-form-lbl" ID="AccIdLbl" runat="server" Text="Gringott's Account ID:"></asp:Label>
                     <asp:TextBox CssClass="formfield-text" ID="AccIdTxtBox" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="AccIdTxtBox" ForeColor="Red">*</asp:RequiredFieldValidator>
                 </div>
                 <div class="checkout-col2" runat="server" id="CheckoutCol2">
                     <asp:Label CssClass="checkout-form-lbl" ID="Addr1Lbl" runat="server" Text="Street Address:"></asp:Label>
-                    <asp:TextBox CssClass="formfield-text" ID="Addr1TxtBox" runat="server"></asp:TextBox><br />
+                    <asp:TextBox CssClass="formfield-text" ID="Addr1TxtBox" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="Addr1TxtBox" ForeColor="Red">*</asp:RequiredFieldValidator><br />
 
                     <asp:Label CssClass="checkout-form-lbl" ID="Addr2Lbl" runat="server" Text="Apt/House Number:"></asp:Label>
-                    <asp:TextBox CssClass="formfield-text" ID="Addr2TxtBox" runat="server"></asp:TextBox><br />
+                    <asp:TextBox CssClass="formfield-text" ID="Addr2TxtBox" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="Addr2TxtBox" ForeColor="Red">*</asp:RequiredFieldValidator><br />
 
                     <asp:Label CssClass="checkout-form-lbl" ID="CityLbl" runat="server" Text="City:"></asp:Label>
-                    <asp:TextBox CssClass="formfield-text" ID="CityTxtBox" runat="server"></asp:TextBox><br />
+                    <asp:TextBox CssClass="formfield-text" ID="CityTxtBox" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="CityTxtBox" ForeColor="Red">*</asp:RequiredFieldValidator><br />
 
                     <asp:Label CssClass="checkout-form-lbl" ID="StateLbl" runat="server" Text="State:"></asp:Label>
-                    <asp:TextBox CssClass="formfield-text" ID="StateTxtBox" runat="server"></asp:TextBox><br />
+                    <asp:TextBox CssClass="formfield-text" ID="StateTxtBox" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="StateTxtBox" ForeColor="Red">*</asp:RequiredFieldValidator><br />
 
                     <asp:Label CssClass="checkout-form-lbl" ID="ZipLbl" runat="server" Text="Zip:"></asp:Label>
                     <asp:TextBox CssClass="formfield-text" ID="ZipTxtBox" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="ZipTxtBox" ForeColor="Red">*</asp:RequiredFieldValidator>
                 </div>
             </div>
             

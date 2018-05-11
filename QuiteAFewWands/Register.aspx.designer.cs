@@ -10,16 +10,16 @@
 namespace QuiteAFewWands {
     
     
-    public partial class Checkout {
+    public partial class Register {
         
         /// <summary>
-        /// CheckoutForm control.
+        /// RegistrationForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm CheckoutForm;
+        protected global::System.Web.UI.HtmlControls.HtmlForm RegistrationForm;
         
         /// <summary>
         /// OkMsg control.
@@ -40,31 +40,22 @@ namespace QuiteAFewWands {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DBErrMsg;
         
         /// <summary>
-        /// CheckoutCol1 control.
+        /// LblF_Name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CheckoutCol1;
+        protected global::System.Web.UI.WebControls.Label LblF_Name;
         
         /// <summary>
-        /// FirstNameLbl control.
+        /// Txt_FName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label FirstNameLbl;
-        
-        /// <summary>
-        /// FirstNameTxtBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox FirstNameTxtBox;
+        protected global::System.Web.UI.WebControls.TextBox Txt_FName;
         
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -76,22 +67,22 @@ namespace QuiteAFewWands {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
-        /// LastNameLbl control.
+        /// Lbl_L_Name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LastNameLbl;
+        protected global::System.Web.UI.WebControls.Label Lbl_L_Name;
         
         /// <summary>
-        /// LastNameTxtBox control.
+        /// Txt_LName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox LastNameTxtBox;
+        protected global::System.Web.UI.WebControls.TextBox Txt_LName;
         
         /// <summary>
         /// RequiredFieldValidator2 control.
@@ -103,22 +94,22 @@ namespace QuiteAFewWands {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
-        /// AccIdLbl control.
+        /// Lbl_User_Name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label AccIdLbl;
+        protected global::System.Web.UI.WebControls.Label Lbl_User_Name;
         
         /// <summary>
-        /// AccIdTxtBox control.
+        /// Txt_Username control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AccIdTxtBox;
+        protected global::System.Web.UI.WebControls.TextBox Txt_Username;
         
         /// <summary>
         /// RequiredFieldValidator3 control.
@@ -130,31 +121,22 @@ namespace QuiteAFewWands {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
-        /// CheckoutCol2 control.
+        /// Lbl_Psw control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CheckoutCol2;
+        protected global::System.Web.UI.WebControls.Label Lbl_Psw;
         
         /// <summary>
-        /// Addr1Lbl control.
+        /// Txt_Psw control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Addr1Lbl;
-        
-        /// <summary>
-        /// Addr1TxtBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Addr1TxtBox;
+        protected global::System.Web.UI.WebControls.TextBox Txt_Psw;
         
         /// <summary>
         /// RequiredFieldValidator4 control.
@@ -166,22 +148,22 @@ namespace QuiteAFewWands {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
         
         /// <summary>
-        /// Addr2Lbl control.
+        /// Lbl_Email control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Addr2Lbl;
+        protected global::System.Web.UI.WebControls.Label Lbl_Email;
         
         /// <summary>
-        /// Addr2TxtBox control.
+        /// Txt_Email control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Addr2TxtBox;
+        protected global::System.Web.UI.WebControls.TextBox Txt_Email;
         
         /// <summary>
         /// RequiredFieldValidator5 control.
@@ -193,22 +175,40 @@ namespace QuiteAFewWands {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
         
         /// <summary>
-        /// CityLbl control.
+        /// HouseName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CityLbl;
+        protected global::System.Web.UI.WebControls.Label HouseName;
         
         /// <summary>
-        /// CityTxtBox control.
+        /// HouseId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox CityTxtBox;
+        protected global::System.Web.UI.WebControls.DropDownList HouseId;
+        
+        /// <summary>
+        /// Lbl_AccId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Lbl_AccId;
+        
+        /// <summary>
+        /// Txt_AccId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Txt_AccId;
         
         /// <summary>
         /// RequiredFieldValidator6 control.
@@ -220,102 +220,12 @@ namespace QuiteAFewWands {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
         
         /// <summary>
-        /// StateLbl control.
+        /// Btn_Register control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label StateLbl;
-        
-        /// <summary>
-        /// StateTxtBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox StateTxtBox;
-        
-        /// <summary>
-        /// RequiredFieldValidator7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
-        
-        /// <summary>
-        /// ZipLbl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ZipLbl;
-        
-        /// <summary>
-        /// ZipTxtBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ZipTxtBox;
-        
-        /// <summary>
-        /// RequiredFieldValidator8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
-        
-        /// <summary>
-        /// CheckoutListContainer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CheckoutListContainer;
-        
-        /// <summary>
-        /// CartListRepeater control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater CartListRepeater;
-        
-        /// <summary>
-        /// CheckoutTotalContainer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CheckoutTotalContainer;
-        
-        /// <summary>
-        /// TotalLbl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TotalLbl;
-        
-        /// <summary>
-        /// CompleteBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CompleteBtn;
+        protected global::System.Web.UI.WebControls.Button Btn_Register;
     }
 }

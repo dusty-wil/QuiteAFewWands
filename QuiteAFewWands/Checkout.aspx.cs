@@ -42,7 +42,6 @@ namespace QuiteAFewWands
                 Response.Redirect("ViewCart.aspx");
             }
             
-
             UpdateCartList();
             UpdateCartTotal();
         }
@@ -50,46 +49,61 @@ namespace QuiteAFewWands
 
         protected void CompleteBtn_Click(Object sender, EventArgs e)
         {
-            int userId = CreateAnonUser(
-                FirstNameTxtBox.Text, 
-                LastNameTxtBox.Text, 
-                AccIdTxtBox.Text
-            );
-
-            if (userId > 0)
+            if (Page.IsValid)
             {
-                int orderId = CreateOrder(
-                    userId,
-                    CartItems
+
+                int userId = CreateAnonUser(
+                    FirstNameTxtBox.Text,
+                    LastNameTxtBox.Text,
+                    AccIdTxtBox.Text
                 );
 
-                if (orderId > 0)
+                if (userId > 0)
                 {
-                    bool checkoutSuccessful = CreateOrderAddress(
-                        Addr1TxtBox.Text,
-                        Addr2TxtBox.Text,
-                        CityTxtBox.Text,
-                        StateTxtBox.Text,
-                        ZipTxtBox.Text,
-                        orderId
+                    int orderId = CreateOrder(
+                        userId,
+                        CartItems
                     );
 
-                    if (checkoutSuccessful)
+                    if (orderId > 0)
                     {
-                        OkMsg.InnerText = "Checkout complete! Expect our owl within 1-2 days!";
-                        OkMsg.Visible = true;
-                        Session.Remove("cart");
+                        bool checkoutSuccessful = CreateOrderAddress(
+                            Addr1TxtBox.Text,
+                            Addr2TxtBox.Text,
+                            CityTxtBox.Text,
+                            StateTxtBox.Text,
+                            ZipTxtBox.Text,
+                            orderId
+                        );
+
+                        if (checkoutSuccessful)
+                        {
+                            OkMsg.InnerText = "Checkout complete! Expect our owl within 1-2 days!";
+                            OkMsg.Visible = true;
+                            Session.Remove("cart");
+                        }
+                        else
+                        {
+                            DBErrMsg.InnerText = "Unable to complete checkout at this time. Please try again later!";
+                            DBErrMsg.Visible = true;
+                        }
+
+                        CheckoutCol1.Visible = false;
+                        CheckoutCol2.Visible = false;
+                        CheckoutListContainer.Visible = false;
+                        CheckoutTotalContainer.Visible = false;
                     }
                     else
                     {
                         DBErrMsg.InnerText = "Unable to complete checkout at this time. Please try again later!";
                         DBErrMsg.Visible = true;
+
+                        CheckoutCol1.Visible = false;
+                        CheckoutCol2.Visible = false;
+                        CheckoutListContainer.Visible = false;
+                        CheckoutTotalContainer.Visible = false;
                     }
 
-                    CheckoutCol1.Visible = false;
-                    CheckoutCol2.Visible = false;
-                    CheckoutListContainer.Visible = false;
-                    CheckoutTotalContainer.Visible = false;
                 }
                 else
                 {
@@ -101,19 +115,8 @@ namespace QuiteAFewWands
                     CheckoutListContainer.Visible = false;
                     CheckoutTotalContainer.Visible = false;
                 }
-                
-            }
-            else
-            {
-                DBErrMsg.InnerText = "Unable to complete checkout at this time. Please try again later!";
-                DBErrMsg.Visible = true;
 
-                CheckoutCol1.Visible = false;
-                CheckoutCol2.Visible = false;
-                CheckoutListContainer.Visible = false;
-                CheckoutTotalContainer.Visible = false;
             }
-
             
         }
 
@@ -377,6 +380,8 @@ namespace QuiteAFewWands
             string state, string zip, int orderId
         )
         {
+            bool success = true;
+
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
 
@@ -415,14 +420,14 @@ namespace QuiteAFewWands
             {
                 DBErrMsg.InnerText += Err.ToString();
                 DBErrMsg.Visible = true;
-                return false;
+                success = false;
             }
             finally
             {
                 con.Close();
             }
 
-            return true;
+            return success;
         }
     }
 }

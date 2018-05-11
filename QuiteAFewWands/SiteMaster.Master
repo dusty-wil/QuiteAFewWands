@@ -15,9 +15,36 @@
         <img src="images/header_logo_large.png"/>
     </div>
     <div class="nav-container">
+        <span class="header-greeting"><%: ((Session["user_firstname"] != null && Session["user_lastname"] != null) ? "Hello " + Session["user_firstname"].ToString()  + " " + Session["user_firstname"].ToString() + " | " : "") %></span>
         <a href="Default.aspx">Search</a>
         <a href="ViewCart.aspx">View Cart <span class="cart-count"><%:  ((Session["cart"] == null || ((List<int>)Session["cart"]).Count == 0) ? 0 : ((List<int>)Session["cart"]).Count) %></span></a>
-        <a href="Login.aspx">Log In</a>
+        <a href="Register.aspx">Register Account</a>
+        <% 
+        if (Session["user_id"] != null)
+        {
+            %>
+            <a href="Login.aspx?LogOut=1">Log Out</a>
+            <%
+        }
+        else
+        {
+            %>
+            <a href="Login.aspx">Log In</a>
+            <%
+        }
+
+        if (Session["user_isadmin"] != null)
+        {
+            int isadmin = 0;
+            int.TryParse(Session["user_isadmin"].ToString(), out isadmin);
+            if(isadmin == 1)
+            {
+                %>
+                    <a href="Admin/AdminDefault.aspx">Admin Area</a>
+                <%
+            }
+        }
+        %>
     </div>
     <div class="content-container">
         <asp:ContentPlaceHolder ID="bodyContentPlaceholder" runat="server"></asp:ContentPlaceHolder>
