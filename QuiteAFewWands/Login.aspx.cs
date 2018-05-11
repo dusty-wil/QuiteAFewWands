@@ -109,7 +109,18 @@ namespace QuiteAFewWands
         {
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
-            String sql = "SELECT * FROM [User] WHERE UserName = @UserName AND Password = HASHBYTES('SHA2_256', @Password)";
+            String sql = "SELECT " +
+                "Id, " +
+                "UserName, " +
+                "FirstName, " +
+                "LastName, " +
+                "IsAdmin, " +
+                "AccId " +
+            "FROM [User] " +
+            "WHERE " +
+                "UserName = @UserName " +
+                "AND Password = HASHBYTES('SHA2_256', @Password)"
+            ;
             SqlDataReader rd;
 
             try
@@ -127,11 +138,11 @@ namespace QuiteAFewWands
                 {
                     LogOut();
 
+                    Session["user_id"] = rd["Id"].ToString();
                     Session["user_username"] = rd["UserName"].ToString();
                     Session["user_firstname"] = rd["FirstName"].ToString();
                     Session["user_lastname"] = rd["LastName"].ToString();
-                    Session["user_id"] = (int)rd["Id"];
-                    Session["user_isadmin"] = (int)rd["IsAdmin"];
+                    Session["user_isadmin"] = rd["IsAdmin"].ToString();
                     Session["user_accid"] = rd["AccId"].ToString();
                 }
                 rd.Close();
@@ -145,6 +156,14 @@ namespace QuiteAFewWands
             {
                 con.Close();
             }
+
+            UpdateLastLogin();
+        }
+
+
+        private void UpdateLastLogin()
+        {
+
         }
     }
 }

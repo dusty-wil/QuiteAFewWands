@@ -444,7 +444,7 @@ body
 
 .rating-spacer
 {
-    margin: 20px 200px;
+    margin: 20px 400px;
 }
 
 .rating-grid 
@@ -485,6 +485,22 @@ body
     background-color: #D7D5CD;
 }
 
+.add-rating-container
+{
+    text-align: center;
+}
+
+.rating-label
+{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+}
+
+.rating-ddl
+{
+    vertical-align: middle;
+}
 
 /*****************
  * item deet page
@@ -523,6 +539,19 @@ body
     width: 100%;
     text-align: right;
     display: block;
+}
+
+
+/*****************
+ * admin pages
+ ****************/
+
+
+.admin-blurb
+{
+    display: block;
+    width: 100%;
+    text-align: center;
 }
 
 /*****************

@@ -23,6 +23,19 @@
                     <FooterStyle CssClass="rating-grid-footer" />
                     <HeaderStyle CssClass="rating-grid-header" />
                 </asp:GridView>
+                <br />
+                <div class="add-rating-container">
+                    <asp:Label ID="RatingLbl" CssClass="rating-label" runat="server" Text="How would you rate this wand?"></asp:Label>
+                    <asp:DropDownList ID="RatingDDL" runat="server" CssClass="rating-ddl">
+                        <asp:ListItem Text="1 Star" Value="1"></asp:ListItem>
+                        <asp:ListItem Text="2 Stars" Value="2"></asp:ListItem>
+                        <asp:ListItem Text="3 Stars" Value="3"></asp:ListItem>
+                        <asp:ListItem Text="4 Stars" Value="4"></asp:ListItem>
+                        <asp:ListItem Text="5 Stars" Value="5"></asp:ListItem>
+                    </asp:DropDownList>
+                    <br class="spacer" />
+                    <asp:Button ID="Btn_Submit" cssclass="cta-btn" runat="server" Text="Submit" OnClick="Btn_Submit_Click" />
+                </div>
             </div>
         </form>
     </div>

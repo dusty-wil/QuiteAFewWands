@@ -15,7 +15,12 @@
         <img src="../images/header_logo_large.png"/>
     </div>
     <div class="nav-container">
-        <a href="#">admin links</a><a href="#">admin links</a><a href="#">admin links</a><a href="#">admin links</a><a href="#">admin links</a>
+        <a href="../Default.aspx">Site Home</a>
+        <a href="AdminDefault.aspx">Admin Home</a>
+        <a href="AddEditCoreType.aspx">Add/Edit Core Type</a>
+        <a href="AddEditFlexibility.aspx">Add/Edit Flexibility</a>
+        <a href="AddEditWoodType.aspx">Add/Edit Wood Type</a>
+        <a href="AddEditWand.aspx">Add/Edit Wand</a>
     </div>
     <div class="content-container">
         <asp:ContentPlaceHolder ID="bodyContentPlaceholder" runat="server"></asp:ContentPlaceHolder>

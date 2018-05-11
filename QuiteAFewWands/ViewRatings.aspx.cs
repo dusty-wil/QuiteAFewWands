@@ -15,12 +15,12 @@ namespace QuiteAFewWands
         private double totalRatings = 0;
         private double ratingsTotal = 0;
 
+        private int WandId = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             DBErrMsg.Visible = false;
             OkMsg.Visible = false;
-
-            int WandId = 0;
 
             if (!int.TryParse(Request.QueryString["WandId"], out WandId))
             {
@@ -56,10 +56,73 @@ namespace QuiteAFewWands
                 if (totalRatings > 0)
                 {
 
-                    e.Row.Cells[2].Text = "Avg: " + Math.Round((ratingsTotal/totalRatings), 2).ToString();
+                    e.Row.Cells[1].Text = "Avg: " + Math.Round((ratingsTotal/totalRatings), 2).ToString();
                 }
             }
         }
+
+
+        protected void Btn_Submit_Click(object sender, EventArgs e)
+        {
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            int UserId = 0;
+
+            if (Session["user_id"] != null)
+            {
+                if (!int.TryParse(Session["user_id"].ToString(), out UserId))
+                {
+                    UserId = CreateAnonUser("Anon", "User");
+                }
+            }
+            else
+            {
+                UserId = CreateAnonUser("Anon", "User");
+            }
+
+            String sql = "INSERT INTO Rating ( " +
+                "WandId, " +
+                "UserId, " +
+                "Value, " +
+                "DateAdded " +
+            " ) VALUES ( " +
+                "@WandId, " +
+                "@UserId, " +
+                "@Value, " +
+                "SYSDATETIME() " +
+            " ) "
+            ;
+            SqlCommand cmd = new SqlCommand(sql, con);
+
+            try
+            {
+                con.Open();
+
+                cmd.Parameters.AddWithValue("@WandId", WandId);
+                cmd.Parameters.AddWithValue("@UserId", UserId);
+
+                int val = 1;
+                int.TryParse(RatingDDL.SelectedValue, out val);
+
+                cmd.Parameters.AddWithValue("@Value", val);
+
+                cmd.ExecuteNonQuery();
+                OkMsg.Visible = true;
+                OkMsg.InnerText = "Rating has been added!";
+                GetWandRatings(WandId);
+            }
+            catch (Exception Err)
+            {
+                DBErrMsg.InnerText += Err.ToString();
+                DBErrMsg.Visible = true;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
 
         private void GetWandName(int WandId)
         {
@@ -113,7 +176,6 @@ namespace QuiteAFewWands
 
                 String sql =
                     "SELECT " +
-                        "CONCAT(U.FirstName, ' ', U.LastName) AS Name, " +
                         "R.DateAdded AS Date, " +
                         "R.Value AS Rating " +
                     "FROM Rating AS R " +
@@ -142,6 +204,51 @@ namespace QuiteAFewWands
             {
                 con.Close();
             }
+        }
+
+        private int CreateAnonUser(string FirstName, string LastName)
+        {
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            int userId = 0;
+
+            String sql = "INSERT INTO [User] ( " +
+                "FirstName, " +
+                "LastName, " +
+                "HouseId, " +
+                "IsAdmin, " +
+                "DateAdded " +
+            " ) OUTPUT INSERTED.Id VALUES ( " +
+                "@FirstName, " +
+                "@LastName, " +
+                "5, " +
+                "0, " +
+                "SYSDATETIME() " +
+            " ) "
+            ;
+            SqlCommand cmd = new SqlCommand(sql, con);
+
+            try
+            {
+                con.Open();
+
+                cmd.Parameters.AddWithValue("@FirstName", FirstName);
+                cmd.Parameters.AddWithValue("@LastName", LastName);
+
+                userId = (int)cmd.ExecuteScalar();
+            }
+            catch (Exception Err)
+            {
+                DBErrMsg.InnerText += Err.ToString();
+                DBErrMsg.Visible = true;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return userId;
         }
     }
 }

@@ -44,6 +44,19 @@ namespace QuiteAFewWands
             
             UpdateCartList();
             UpdateCartTotal();
+
+            if (Session["user_firstname"] != null)
+            {
+                FirstNameTxtBox.Text = Session["user_firstname"].ToString();
+            }
+            if (Session["user_lastname"] != null)
+            {
+                LastNameTxtBox.Text = Session["user_lastname"].ToString();
+            }
+            if (Session["user_accid"] != null)
+            {
+                AccIdTxtBox.Text = Session["user_accid"].ToString();
+            }
         }
 
 
@@ -51,12 +64,27 @@ namespace QuiteAFewWands
         {
             if (Page.IsValid)
             {
+                int userId = 0;
 
-                int userId = CreateAnonUser(
-                    FirstNameTxtBox.Text,
-                    LastNameTxtBox.Text,
-                    AccIdTxtBox.Text
-                );
+                if (Session["user_id"] != null)
+                {
+                    if (!int.TryParse(Session["user_id"].ToString(), out userId))
+                    {
+                        userId = CreateAnonUser(
+                            FirstNameTxtBox.Text,
+                            LastNameTxtBox.Text,
+                            AccIdTxtBox.Text
+                        );
+                    }
+                }
+                else
+                {
+                    userId = CreateAnonUser(
+                        FirstNameTxtBox.Text,
+                        LastNameTxtBox.Text,
+                        AccIdTxtBox.Text
+                    );
+                }
 
                 if (userId > 0)
                 {

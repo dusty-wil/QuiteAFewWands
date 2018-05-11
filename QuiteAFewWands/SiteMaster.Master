@@ -15,7 +15,7 @@
         <img src="images/header_logo_large.png"/>
     </div>
     <div class="nav-container">
-        <span class="header-greeting"><%: ((Session["user_firstname"] != null && Session["user_lastname"] != null) ? "Hello " + Session["user_firstname"].ToString()  + " " + Session["user_firstname"].ToString() + " | " : "") %></span>
+        <span class="header-greeting"><%: ((Session["user_firstname"] != null && Session["user_lastname"] != null) ? "Hello " + Session["user_firstname"].ToString()  + " " + Session["user_lastname"].ToString() + " | " : "") %></span>
         <a href="Default.aspx">Search</a>
         <a href="ViewCart.aspx">View Cart <span class="cart-count"><%:  ((Session["cart"] == null || ((List<int>)Session["cart"]).Count == 0) ? 0 : ((List<int>)Session["cart"]).Count) %></span></a>
         <a href="Register.aspx">Register Account</a>

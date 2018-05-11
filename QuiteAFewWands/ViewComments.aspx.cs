@@ -116,8 +116,6 @@ namespace QuiteAFewWands
             {
                 con.Close();
             }
-
         }
-
     }
 }
