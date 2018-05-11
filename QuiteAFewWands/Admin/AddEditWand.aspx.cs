@@ -275,10 +275,15 @@ namespace QuiteAFewWands.Admin
                 {
                     TextBox1.Text = rd["Name"].ToString();
                     ddlWoodType.SelectedValue = rd["WoodId"].ToString();
-                   
+                    coreTypeDDL.SelectedValue = rd["CoreId"].ToString();
+                    flexTypeDDL.SelectedValue = rd["FlexibilityId"].ToString();
+                    countryDDL.SelectedValue = rd["CountryId"].ToString();
+                    TextBox2.Text = rd["Length"].ToString();
+                    TextBox3.Text = rd["Weight"].ToString();
+                    TextBox4.Text = rd["Price"].ToString();
+                    TextBox5.Text = rd["Decription"].ToString();
                 }
                 rd.Close();
-
             }
 
             catch (Exception err)
@@ -291,6 +296,103 @@ namespace QuiteAFewWands.Admin
             {
                 con.Close();
             }
-        } 
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            if (WandsDDL.SelectedIndex == 0)
+            {
+                // create connection object
+                String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+                SqlConnection con = new SqlConnection(connectionString);
+
+                //create as CommandBehavior object
+                String cmdString = "INSERT INTO [WAND] (Id, " +
+                "Name, " +
+                "WoodId, " +
+                "CoreId, " +
+                "FlexibilityId, " +
+                "CountryId, " +
+                "Length, " +
+                "Weight, " +
+                "Price, " +
+                "Description ) VALUES (@wandID, @wandName, @woodID, @coreID, @flexID, @countryID, @length, @weight, @price, @desc)";
+                SqlCommand cmd = new SqlCommand(cmdString, con);
+
+                //create parameter object and add its value
+
+                SqlParameter param1 = new SqlParameter();
+                param1.ParameterName = "@wandID";
+                param1.Value = TextBox1.Text;
+                cmd.Parameters.Add(param1);
+
+                SqlParameter param2 = new SqlParameter();
+                param2.ParameterName = "@wandName";
+                param2.Value = ddlWoodType.SelectedValue;
+                cmd.Parameters.Add(param2);
+
+                SqlParameter param3 = new SqlParameter();
+                param3.ParameterName = "@woodID";
+                param3.Value = coreTypeDDL.SelectedValue;
+                cmd.Parameters.Add(param3);
+
+                SqlParameter param4 = new SqlParameter();
+                param4.ParameterName = "@coreID";
+                param4.Value = flexTypeDDL.SelectedValue;
+                cmd.Parameters.Add(param4);
+
+                SqlParameter param5 = new SqlParameter();
+                param5.ParameterName = "@flexID";
+                param5.Value = TextBox1.Text;
+                cmd.Parameters.Add(param5);
+
+                SqlParameter param6 = new SqlParameter();
+                param6.ParameterName = "@countryID";
+                param6.Value = countryDDL.SelectedValue;
+                cmd.Parameters.Add(param6);
+
+                SqlParameter param7 = new SqlParameter();
+                param7.ParameterName = "@length";
+                param7.Value = TextBox2.Text;
+                cmd.Parameters.Add(param7);
+
+                SqlParameter param8 = new SqlParameter();
+                param8.ParameterName = "@weight";
+                param8.Value = TextBox3.Text;
+                cmd.Parameters.Add(param8);
+
+                SqlParameter param9 = new SqlParameter();
+                param9.ParameterName = "@price";
+                param9.Value = TextBox4.Text;
+                cmd.Parameters.Add(param9);
+
+                SqlParameter param10 = new SqlParameter();
+                param10.ParameterName = "@desc";
+                param10.Value = TextBox5.Text;
+                cmd.Parameters.Add(param10);
+
+                int added = 0;
+
+                Label1.Visible = true;
+
+                try
+                {
+                    con.Open();
+                    added = cmd.ExecuteNonQuery();
+                    Label1.Text = "Added " + added.ToString() + " records.";
+                }
+
+                catch (Exception err)
+                {
+                    DBErrorLabel.Visible = true;
+                    DBErrorLabel.Text = err.Message;
+                }
+
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
     }
 }

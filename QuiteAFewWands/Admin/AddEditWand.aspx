@@ -42,8 +42,11 @@
         Description:&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
         <br />
-        <asp:Button ID="Button1" runat="server" Text="Save" />
+        <asp:Button ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" />
 &nbsp;&nbsp;&nbsp;
+        <br />
+        <br />
+        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
         <br />
         <br />
         <asp:Label ID="DBErrorLabel" runat="server" Text="DB Error Message Here"></asp:Label>
