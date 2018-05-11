@@ -27,6 +27,7 @@ namespace QuiteAFewWands
             }
         }
 
+
         protected void Btn_Enter_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)

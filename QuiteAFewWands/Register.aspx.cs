@@ -23,6 +23,7 @@ namespace QuiteAFewWands
             }
         }
 
+
         protected void Btn_Register_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
