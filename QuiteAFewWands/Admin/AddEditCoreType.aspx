@@ -5,28 +5,39 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="bodyContentPlaceholder" runat="server">
     <form id="form1" runat="server">
-    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+        <br />
+        <asp:Button ID="insertButton" runat="server" OnClick="insertButton_Click" Text="Insert New Core Type" />
+        &nbsp;&nbsp;&nbsp;
+        <asp:Button ID="updateButton" runat="server" OnClick="updateButton_Click" Text="Update Existing Core Type" />
+&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="deleteButton" runat="server" OnClick="deleteButton_Click" Text="Delete Existing Core Type" />
 
         
 
         <br />
+        <br />
+        <br />
+        <br />
         <asp:DropDownList ID="ddlCoreType" runat="server">
         </asp:DropDownList>
+        <asp:Button ID="deleteCoreType" runat="server" Text="Delete" OnClick="deleteCoreType_Click" />
         <br />
         <br />
-&nbsp;&nbsp; Core Type:&nbsp;
+        &nbsp;<asp:Label ID="preTextBoxLabel" runat="server" Text="Label"></asp:Label>
+        &nbsp; &nbsp;
         <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
 &nbsp;
+        <asp:Button ID="saveButton" runat="server" Text="Save" OnClick="saveButton_Click" />
+        <asp:Button ID="updateCoreType" runat="server" Text="Update" OnClick="updateCoreType_Click" />
         <br />
         <br />
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Insert Core Type" />
-        &nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Update Core Type" />
-&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="Delete Core Type" />
+        &nbsp;<asp:Label ID="Label1" runat="server" Text="# records added/updated/deleted."></asp:Label>
+
+        
+
         <br />
         <br />
-        <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="DBErrorLabel" runat="server" Text="DB Error Message Here"></asp:Label>
         <br />
 
         

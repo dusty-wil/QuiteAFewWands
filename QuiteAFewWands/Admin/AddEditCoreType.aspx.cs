@@ -15,110 +15,40 @@ namespace QuiteAFewWands.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            //make error lable not visible on page load
+            TextBox1.Visible = false;
             Label1.Visible = false;
+            DBErrorLabel.Visible = false;
+            preTextBoxLabel.Visible = false;
+            saveButton.Visible = false;
+            ddlCoreType.Visible = false;
+            deleteCoreType.Visible = false;
+            updateCoreType.Visible = false;
 
-
-
-
-
-
-            //fill in CoreType DDL
-            //fillCoreTypeList();
-
-            // create connection object
-            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
-            SqlConnection con = new SqlConnection(connectionString);
-
-
-            try
+            if (!IsPostBack)
             {
-                //open connection
-                con.Open();
-                Label1.Text = "connection is now: " + con.State.ToString();
-                
-            }
-            catch (Exception err)
-            {
-                Label1.Text = err.Message;
-            }
 
-            finally
-            {
-                con.Close();
-                Label1.Text += "now connection is: " + con.State.ToString();
             }
         }
 
 
 
 
-        /* ----- FILL CATEGORY LIST ----- */
-        private void fillCoreTypeList()
+        /* ----- IF "INSERT CORE TYPE" BUTTON IS CLICKED ----- */
+        protected void insertButton_Click(object sender, EventArgs e)
         {
-            ddlCoreType.Items.Clear();
+            TextBox1.Visible = true; //make textbox visible
+            preTextBoxLabel.Visible = true; //make label before textbox visible
+            saveButton.Visible = true; //make save button visible
+            preTextBoxLabel.Text = "Flexibility Value:";
 
-            ListItem newItem = new ListItem
-            {
-                Text = "All",
-                Value = "0"
-            };
-
-            ddlCoreType.Items.Add(newItem);
-
-
-            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
-            SqlConnection con = new SqlConnection(connectionString);
-            String selectSQL = "SELECT Id, CoreTypeName FROM [CoreType]";
-
-
-            SqlCommand cmd = new SqlCommand(selectSQL, con);
-            SqlDataReader reader;
-
-            try
-            {
-                con.Open();
-                reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    newItem = new ListItem
-                    {
-
-                        Text = reader["CoreTypeName"].ToString(),
-                        Value = reader["Id"].ToString()
-                    };
-                    ddlCoreType.Items.Add(newItem);
-
-                }
-                reader.Close();
-            }
-            catch (Exception err)
-            {
-                Label1.Visible = true;
-                Label1.Text = err.Message;
-            }
-            finally
-            {
-                con.Close();
-            }
         }
 
+        protected void TextBox1_TextChanged(object sender, EventArgs e)
+        {
 
+        }
 
-
-
-
-
-
-
-
-
-
-
-        /* ----- ADD ----- */
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void saveButton_Click(object sender, EventArgs e)
         {
             // create connection object
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
@@ -129,23 +59,26 @@ namespace QuiteAFewWands.Admin
             SqlCommand cmd = new SqlCommand(cmdString, con);
 
             //create parameter object and add its value
+
             SqlParameter param1 = new SqlParameter();
             param1.ParameterName = "@CTypeName";
             param1.Value = TextBox1.Text;
             cmd.Parameters.Add(param1);
 
             int added = 0;
+            Label1.Visible = true;
 
             try
             {
                 con.Open();
                 added = cmd.ExecuteNonQuery();
-                Label2.Text = "Added " + added.ToString() + " records.";
+                Label1.Text = "Added " + added.ToString() + " records.";
             }
 
             catch (Exception err)
             {
-                Label1.Text = err.Message;
+                DBErrorLabel.Visible = true;
+                DBErrorLabel.Text = err.Message;
             }
 
             finally
@@ -157,48 +90,64 @@ namespace QuiteAFewWands.Admin
 
 
 
-        /* ----- UPDATE (not working) ----- */
-        protected void Button2_Click(object sender, EventArgs e)
+        /* ----- IF "DELETE FLEXIBILITY" BUTTON IS CLICKED ----- */
+        protected void deleteButton_Click(object sender, EventArgs e)
         {
-            // create connection object
+            ddlCoreType.Visible = true; // make ddlCoreType visible
+            deleteCoreType.Visible = true; // make delete button visible
+
+
+            //fill DDL from DB values
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
-
-            //create as CommandBehavior object
-            String cmdString = "UPDATE [CORETYPE] SET CoreType = @CTypeName WHERE CoreTypeName = @CTypeName ";
+            String cmdString = "SELECT Id, CoreTypeName FROM [CORETYPE] ";
             SqlCommand cmd = new SqlCommand(cmdString, con);
-
-            //create parameter object and add its value
-            SqlParameter param1 = new SqlParameter();
-            param1.ParameterName = "@CTypeName";
-            param1.Value = TextBox1.Text;
-            cmd.Parameters.Add(param1);
-
-            int updated = 0;
             try
             {
                 con.Open();
-                updated = cmd.ExecuteNonQuery();
-                Label2.Text = "Updated " + updated.ToString() + " records.";
+
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+
+                da.Fill(ds);
+                ddlCoreType.DataSource = ds;
+                ddlCoreType.DataTextField = "CoreTypeName";
+                ddlCoreType.DataValueField = "Id";
+                ddlCoreType.DataBind();
+
+                ddlCoreType.Items.Insert(0, new ListItem("--Select--", "0"));
+
             }
 
             catch (Exception err)
             {
-                Label1.Text = err.Message;
+                DBErrorLabel.Visible = true;
+                DBErrorLabel.Text = err.Message;
             }
 
             finally
             {
                 con.Close();
             }
+
+
+
         }
 
-       
 
 
-        /* ----- DELETE ----- */
-        protected void Button3_Click(object sender, EventArgs e)
+
+
+
+
+        protected void deleteCoreType_Click(object sender, EventArgs e)
         {
+
+
+            Label1.Visible = true;
+
+
             // create connection object
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
@@ -210,35 +159,130 @@ namespace QuiteAFewWands.Admin
             //create parameter object and add its value
             SqlParameter param1 = new SqlParameter();
             param1.ParameterName = "@CTypeName";
-            param1.Value = TextBox1.Text;
+            param1.Value = ddlCoreType.SelectedItem.Text;
             cmd.Parameters.Add(param1);
+
 
             int deleted = 0;
             try
             {
                 con.Open();
                 deleted = cmd.ExecuteNonQuery();
-                Label2.Text = "Deleted " + deleted.ToString() + " records.";
+                Label1.Text = "Deleted " + deleted.ToString() + " records.";
             }
 
             catch (Exception err)
             {
-                Label1.Text = err.Message;
+                DBErrorLabel.Visible = true;
+                DBErrorLabel.Text = err.Message;
             }
 
             finally
             {
                 con.Close();
             }
-            
         }
 
 
-        protected void TextBox1_TextChanged(object sender, EventArgs e)
+
+
+
+
+
+
+        /* ----- IF "UPDATE FLEXIBILITY" BUTTON IS CLICKED ----- */
+        protected void updateButton_Click(object sender, EventArgs e)
         {
+            ddlCoreType.Visible = true; // make flexValueDDL visible
+            preTextBoxLabel.Visible = true;
+            preTextBoxLabel.Text = "Updated Flexibility Value: ";
+            TextBox1.Visible = true;
+            updateCoreType.Visible = true;
+
+            //fill DDL from DB values
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+            String cmdString = "SELECT Id, CoreTypeName FROM [CORETYPE] ";
+            SqlCommand cmd = new SqlCommand(cmdString, con);
+            try
+            {
+                con.Open();
+
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+
+                da.Fill(ds);
+                ddlCoreType.DataSource = ds;
+                ddlCoreType.DataTextField = "CoreTypeName";
+                ddlCoreType.DataValueField = "Id";
+                ddlCoreType.DataBind();
+
+                ddlCoreType.Items.Insert(0, new ListItem("--Select--", "0"));
+
+            }
+
+            catch (Exception err)
+            {
+                DBErrorLabel.Visible = true;
+                DBErrorLabel.Text = err.Message;
+            }
+
+            finally
+            {
+                con.Close();
+            }
+
+
+
+
 
         }
 
+
+
+        protected void updateCoreType_Click(object sender, EventArgs e)
+        {
+            // create connection object
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+
+            //create as CommandBehavior object
+            String cmdString = "UPDATE [CORETYPE] SET CoreTypeName = @CTypeName WHERE Id = @CTypeID";
+            SqlCommand cmd = new SqlCommand(cmdString, con);
+
+            //create param object and add its value
+            SqlParameter param1 = new SqlParameter();
+            param1.ParameterName = "@CTypeID";
+            param1.Value = ddlCoreType.SelectedItem.Value;
+            cmd.Parameters.Add(param1);
+
+            SqlParameter param2 = new SqlParameter();
+            param2.ParameterName = "@CTypeName";
+            param2.Value = TextBox1.Text;
+            cmd.Parameters.Add(param2);
+
+            int updated = 0;
+            try
+            {
+                con.Open();
+                updated = cmd.ExecuteNonQuery();
+                Label1.Text = "Updated " + updated.ToString() + " records.";
+            }
+
+            catch (Exception err)
+            {
+                DBErrorLabel.Visible = true;
+                DBErrorLabel.Text = err.Message;
+            }
+
+            finally
+            {
+                con.Close();
+            }
+        }
 
     }
+    
 }
