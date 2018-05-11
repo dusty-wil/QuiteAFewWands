@@ -15,6 +15,9 @@
         
 
         <br />
+        <br />
+        <br />
+        <br />
         <asp:DropDownList ID="ddlCoreType" runat="server">
         </asp:DropDownList>
         <asp:Button ID="deleteCoreType" runat="server" Text="Delete" OnClick="deleteCoreType_Click" />
