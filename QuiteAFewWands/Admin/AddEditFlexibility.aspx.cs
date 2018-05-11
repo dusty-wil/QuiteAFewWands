@@ -23,6 +23,7 @@ namespace QuiteAFewWands.Admin
             saveButton.Visible = false;
             flexValueDDL.Visible = false;
             deleteFlex.Visible = false;
+            updateFlex.Visible = false;
 
             if (!IsPostBack)
             {
@@ -33,7 +34,7 @@ namespace QuiteAFewWands.Admin
 
 
 
-        /* ----- IF INSERT BUTTON IS CLICKED ----- */
+        /* ----- IF "INSERT FLEXIBILITY" BUTTON IS CLICKED ----- */
         protected void insertButton_Click(object sender, EventArgs e)
         {
             TextBox1.Visible = true; //make textbox visible
@@ -90,7 +91,7 @@ namespace QuiteAFewWands.Admin
 
 
 
-        /* ----- IF DELETE BUTTON IS CLICKED ----- */
+        /* ----- IF "DELETE FLEXIBILITY" BUTTON IS CLICKED ----- */
         protected void deleteButton_Click(object sender, EventArgs e)
         {
             flexValueDDL.Visible = true; // make flexValueDDL visible
@@ -144,7 +145,7 @@ namespace QuiteAFewWands.Admin
         protected void deleteFlex_Click(object sender, EventArgs e)
         {
 
-
+            
             Label1.Visible = true;
 
 
@@ -169,6 +170,106 @@ namespace QuiteAFewWands.Admin
                 con.Open();
                 deleted = cmd.ExecuteNonQuery();
                 Label1.Text = "Deleted " + deleted.ToString() + " records.";
+            }
+
+            catch (Exception err)
+            {
+                DBErrorLabel.Visible = true;
+                DBErrorLabel.Text = err.Message;
+            }
+
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
+
+
+
+
+
+
+        /* ----- IF "UPDATE FLEXIBILITY" BUTTON IS CLICKED ----- */
+        protected void updateButton_Click(object sender, EventArgs e)
+        {
+            flexValueDDL.Visible = true; // make flexValueDDL visible
+            preTextBoxLabel.Visible = true;
+            preTextBoxLabel.Text = "Updated Flexibility Value: ";
+            TextBox1.Visible = true;
+            updateFlex.Visible = true;
+
+            //fill DDL from DB values
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+            String cmdString = "SELECT Id, FlexibilityValue FROM [FLEXIBILITY] ";
+            SqlCommand cmd = new SqlCommand(cmdString, con);
+            try
+            {
+                con.Open();
+
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+
+                da.Fill(ds);
+                flexValueDDL.DataSource = ds;
+                flexValueDDL.DataTextField = "FlexibilityValue";
+                flexValueDDL.DataValueField = "Id";
+                flexValueDDL.DataBind();
+
+                flexValueDDL.Items.Insert(0, new ListItem("--Select--", "0"));
+
+            }
+
+            catch (Exception err)
+            {
+                DBErrorLabel.Visible = true;
+                DBErrorLabel.Text = err.Message;
+            }
+
+            finally
+            {
+                con.Close();
+            }
+
+            
+
+
+            
+        }
+
+
+
+        protected void updateFlex_Click(object sender, EventArgs e)
+        {
+            // create connection object
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+
+            //create as CommandBehavior object
+            String cmdString = "UPDATE [FLEXIBILITY] SET FlexibilityValue = @FlexValue WHERE Id = @FlexID";
+            SqlCommand cmd = new SqlCommand(cmdString, con);
+
+            //create param object and add its value
+            SqlParameter param1 = new SqlParameter();
+            param1.ParameterName = "@FlexID";
+            param1.Value = flexValueDDL.SelectedItem.Value;
+            cmd.Parameters.Add(param1);
+
+            SqlParameter param2 = new SqlParameter();
+            param2.ParameterName = "@FlexValue";
+            param2.Value = TextBox1.Text;
+            cmd.Parameters.Add(param2);
+
+            int updated = 0;
+            try
+            {
+                con.Open();
+                updated = cmd.ExecuteNonQuery();
+                Label1.Text = "Updated " + updated.ToString() + " records.";
             }
 
             catch (Exception err)

@@ -7,7 +7,7 @@
     <form id="form1" runat="server">
         <asp:Button ID="insertButton" runat="server" OnClick="insertButton_Click" Text="Insert New Flexibility" />
 &nbsp;&nbsp;&nbsp;
-        <asp:Button ID="updateButton" runat="server" Text="Update Existing Flexibility" />
+        <asp:Button ID="updateButton" runat="server" Text="Update Existing Flexibility" OnClick="updateButton_Click" />
 &nbsp;&nbsp;&nbsp;
         <asp:Button ID="deleteButton" runat="server" Text="Delete Existing Flexibility" OnClick="deleteButton_Click" />
         <br />
@@ -19,6 +19,12 @@
         <asp:Label ID="preTextBoxLabel" runat="server" Text="Label"></asp:Label>
 &nbsp;<asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
         <asp:Button ID="saveButton" runat="server" OnClick="saveButton_Click" Text="Save" />
+        <asp:Button ID="updateFlex" runat="server" OnClick="updateFlex_Click" Text="Update" />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <br />
         <br />
         <br />
