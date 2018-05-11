@@ -15,13 +15,26 @@ namespace QuiteAFewWands.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            fillWoodTypeDDL();
-            fillCoreTypeDDL();
-            fillFlexTypeDDL();
-            fillCountryDDL();
             DBErrorLabel.Visible = false;
-            WandsDDL.Items.Clear(); 
 
+            if (!IsPostBack)
+            {
+                FillWoodTypeDDL();
+                FillCoreTypeDDL();
+                FillFlexTypeDDL();
+                FillCountryDDL();
+                FillWandDDL();
+            }
+
+        }
+
+
+        /**
+         * fill current wand DDL
+         */
+        private void FillWandDDL()
+        {
+            WandsDDL.Items.Clear();
 
             ListItem newItem = new ListItem
             {
@@ -66,11 +79,10 @@ namespace QuiteAFewWands.Admin
         }
 
 
-
-
-
-        //fill the wood type DDL
-        private void fillWoodTypeDDL()
+        /**
+         * fill the wood type DDL
+         */
+        private void FillWoodTypeDDL()
         {
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
@@ -106,8 +118,11 @@ namespace QuiteAFewWands.Admin
             }
         }
            
-        //fill the core type DDL
-        private void fillCoreTypeDDL()
+
+        /**
+         * fill the core type DDL
+         */
+        private void FillCoreTypeDDL()
         {
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
@@ -144,9 +159,10 @@ namespace QuiteAFewWands.Admin
         }
 
 
-
-        //fill the flex type DDL
-        private void fillFlexTypeDDL()
+        /**
+         * fill the flex type DDL
+         */
+        private void FillFlexTypeDDL()
         {
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
@@ -183,8 +199,10 @@ namespace QuiteAFewWands.Admin
         }
 
 
-        //fill the country DDL
-        private void fillCountryDDL()
+        /**
+         * fill the country DDL
+         */
+        private void FillCountryDDL()
         {
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
@@ -221,26 +239,36 @@ namespace QuiteAFewWands.Admin
         }
 
 
- 
         protected void WandsDDL_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int wandID = 0;
+            int WandID = 0;
 
-            int.TryParse(WandsDDL.SelectedValue, out wandID);
+            int.TryParse(((DropDownList)sender).SelectedValue, out WandID);
 
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
-            String cmdString = "SELECT Id, Name, WoodId, CoreId, FlexibilityId, CountryId, Length, Weight, Price, " +
-                "Description FROM [WAND] WHERE id = @id";
+            String cmdString = "SELECT " +
+                "Id, " +
+                "Name, " +
+                "WoodId, " +
+                "CoreId, " +
+                "FlexibilityId, " +
+                "CountryId, " +
+                "Length, " +
+                "Weight, " +
+                "Price, " +
+                "Description " +
+            "FROM Wand " +
+                "WHERE Id = @WandId"
+            ;
             SqlCommand cmd = new SqlCommand(cmdString, con);
 
             SqlDataReader rd;
 
             try
             {
-                
                 con.Open();
-                cmd.Parameters.AddWithValue("@id", wandID);
+                cmd.Parameters.AddWithValue("@WandId", WandID);
                 rd = cmd.ExecuteReader();
 
                 if (rd.Read())
@@ -263,10 +291,6 @@ namespace QuiteAFewWands.Admin
             {
                 con.Close();
             }
-
-
-
-
         } 
     }
 }

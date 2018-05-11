@@ -8,7 +8,7 @@
         <br />
         <br />
         Select Wand to Edit or Add New:
-        <asp:DropDownList ID="WandsDDL" runat="server" >
+        <asp:DropDownList ID="WandsDDL" OnSelectedIndexChanged="WandsDDL_SelectedIndexChanged" AutoPostBack="true" runat="server" >
         </asp:DropDownList>
         <br />
         <br />
