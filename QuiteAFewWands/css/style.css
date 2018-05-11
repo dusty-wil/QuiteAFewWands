@@ -205,6 +205,7 @@ body
 .cart-item-price-spacer
 {
     display: inline-block;
+    overflow: hidden;
 }
 
 .cart-item-price 
@@ -257,9 +258,98 @@ body
 
 
 /*****************
- * comment page
+ * checkout page
  ****************/
 
+.checkout-form-content 
+{
+    margin: 20px 130px;
+}
+.checkout-list 
+{
+    font-size: 36px;
+    border-bottom: 5px solid #2D2327;
+    margin: 20px 130px;
+}
+
+.checkout-item-name 
+{
+    display: inline-block;
+    width: 200px;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+
+
+.checkout-item-price 
+{
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+
+.checkout-item-num-spacer 
+{
+    display: inline-block;
+}
+
+.checkout-item-num 
+{
+    display: inline-block;
+    width: 30px;
+}
+
+
+.checkout-total-container 
+{
+    margin: 20px 150px;
+    font-size: 36px;
+    text-align: right;
+}
+
+.checkout-checkout-container 
+{
+    margin: 30px 150px;
+    text-align: right;
+}
+
+.checkout-total-val 
+{
+    font-weight: bold;
+}
+
+.checkout-form-lbl
+{
+    display: inline-block;
+    width: 175px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+.checkout-col1, .checkout-col2
+{
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+
+}
+
+.checkout-col1
+{
+    text-align: right;
+}
+
+.checkout-col2
+{
+    text-align: left;
+}
+
+
+/*****************
+ * comment page
+ ****************/
 
 .comment-list 
 {
@@ -335,13 +425,15 @@ body
     font-weight: bold;
 }
 
-.rating-grid td {
+.rating-grid td 
+{
     padding: 10px;
     border: 0;
     text-align: center;
 }
 
-.rating-grid tr:nth-child(even) {
+.rating-grid tr:nth-child(even) 
+{
     background-color: #D7D5CD;
 }
 
@@ -386,7 +478,7 @@ body
 }
 
 /*****************
- * buttons
+ * form stuff
  ****************/
 
 
@@ -398,11 +490,26 @@ body
     background-color: #B87D4B;
     color: #E0DDCF;
     text-decoration: none;
+    border: 0;
+    font-family: 'Oswald', sans-serif;
+    cursor: pointer;
 }
 
 .cta-btn:hover 
 {
     background-color: #7D4D24;
+}
+
+
+.formfield-text 
+{
+    border-bottom: 1px dashed #2D2327;
+    padding: 5px;
+    display: inline-block;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    background-color: #F0EDDF;
 }
 
 

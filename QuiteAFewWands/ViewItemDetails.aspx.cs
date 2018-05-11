@@ -78,7 +78,8 @@ namespace QuiteAFewWands
                         "w.Length, " +
                         "w.Weight, " +
                         "w.DateCreated, " +
-                        "w.Price  " +
+                        "w.Price," +
+                        "w.Description  " +
                     "FROM Wand AS w " +
                     "INNER JOIN CoreType AS ct ON ct.Id = w.CoreId " +
                     "INNER JOIN WoodType AS wt ON wt.Id = w.WoodId " +

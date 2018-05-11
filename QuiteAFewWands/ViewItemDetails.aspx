@@ -6,9 +6,8 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="bodyContentPlaceholder" runat="server">
     <form id="ItemDetailForm" runat="server">
         <div id="OkMsg" class="message message-ok" runat="server"></div>
-        <div id="DBErrMsg" class="message message-error" runat="server"></div> 
-
-        <ul class="item-detail-list">
+        <div id="DBErrMsg" class="message message-error" runat="server"></div>
+        <ul class="item-detail-list"> 
             <asp:Repeater runat="server" ID="ItemDetailListRepeater">
                 <ItemTemplate> 
                     <li>
@@ -17,6 +16,7 @@
                                 <span class="ribbon-content"><%# Eval("Name") %></span>
                             </h1>
                         </div>
+                        
                         <span class="item-detail-label">Wood Type:</span>
                         <span class="item-detail-value"><%# Eval("WoodTypeName") %></span> <br />
                         
@@ -40,6 +40,9 @@
                         
                         <span class="item-detail-label">Price:</span>
                         <span class="item-detail-value">$<%# Eval("Price") %></span><br />
+
+                        <span class="item-detail-label">Description:</span>
+                        <span class="item-detail-value"><%# Eval("Description") %></span><br />
                         
                         <span class="item-detail-btn">
                             <a href="ViewItemDetails.aspx?WandId=<%# Eval("WandId") %>&AddWandToCart=<%# Eval("WandId") %>" class="cta-btn">Add to Cart</a>
