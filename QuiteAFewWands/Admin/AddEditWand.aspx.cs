@@ -307,7 +307,7 @@ namespace QuiteAFewWands.Admin
                 SqlConnection con = new SqlConnection(connectionString);
 
                 //create as CommandBehavior object
-                String cmdString = "INSERT INTO [WAND] (Id, " +
+                String cmdString = "INSERT INTO [WAND] (" +
                 "Name, " +
                 "WoodId, " +
                 "CoreId, " +
@@ -316,60 +316,62 @@ namespace QuiteAFewWands.Admin
                 "Length, " +
                 "Weight, " +
                 "Price, " +
-                "Description ) VALUES (@wandID, @wandName, @woodID, @coreID, @flexID, @countryID, @length, @weight, @price, @desc)";
+                "DateCreated," +
+                "Description ) VALUES ( @wandName, @woodID, @coreID, @flexID, @countryID, @length, @weight, @price, SYSDATETIME(), @desc)";
                 SqlCommand cmd = new SqlCommand(cmdString, con);
 
                 //create parameter object and add its value
 
+
+
                 SqlParameter param1 = new SqlParameter();
-                param1.ParameterName = "@wandID";
+                param1.ParameterName = "@wandName";
                 param1.Value = TextBox1.Text;
                 cmd.Parameters.Add(param1);
+                
 
                 SqlParameter param2 = new SqlParameter();
-                param2.ParameterName = "@wandName";
+                param2.ParameterName = "@woodID";
                 param2.Value = ddlWoodType.SelectedValue;
                 cmd.Parameters.Add(param2);
 
                 SqlParameter param3 = new SqlParameter();
-                param3.ParameterName = "@woodID";
+                param3.ParameterName = "@coreID";
                 param3.Value = coreTypeDDL.SelectedValue;
                 cmd.Parameters.Add(param3);
 
                 SqlParameter param4 = new SqlParameter();
-                param4.ParameterName = "@coreID";
+                param4.ParameterName = "@flexID";
                 param4.Value = flexTypeDDL.SelectedValue;
                 cmd.Parameters.Add(param4);
 
                 SqlParameter param5 = new SqlParameter();
-                param5.ParameterName = "@flexID";
-                param5.Value = TextBox1.Text;
+                param5.ParameterName = "@countryID";
+                param5.Value = countryDDL.SelectedValue;
                 cmd.Parameters.Add(param5);
 
                 SqlParameter param6 = new SqlParameter();
-                param6.ParameterName = "@countryID";
-                param6.Value = countryDDL.SelectedValue;
+                param6.ParameterName = "@length";
+                param6.Value = TextBox2.Text;
                 cmd.Parameters.Add(param6);
-
+       
+            
                 SqlParameter param7 = new SqlParameter();
-                param7.ParameterName = "@length";
-                param7.Value = TextBox2.Text;
+                param7.ParameterName = "@weight";
+                param7.Value = TextBox3.Text;
                 cmd.Parameters.Add(param7);
 
                 SqlParameter param8 = new SqlParameter();
-                param8.ParameterName = "@weight";
-                param8.Value = TextBox3.Text;
+                param8.ParameterName = "@price";
+                param8.Value = TextBox4.Text;
                 cmd.Parameters.Add(param8);
-
+                
                 SqlParameter param9 = new SqlParameter();
-                param9.ParameterName = "@price";
-                param9.Value = TextBox4.Text;
+                param9.ParameterName = "@desc";
+                param9.Value = TextBox5.Text;
                 cmd.Parameters.Add(param9);
 
-                SqlParameter param10 = new SqlParameter();
-                param10.ParameterName = "@desc";
-                param10.Value = TextBox5.Text;
-                cmd.Parameters.Add(param10);
+                
 
                 int added = 0;
 
@@ -393,6 +395,104 @@ namespace QuiteAFewWands.Admin
                     con.Close();
                 }
             }
+            else
+            {
+
+                // create connection object
+                String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+                SqlConnection con = new SqlConnection(connectionString);
+
+                String cmdString = "UPDATE [WAND] SET " +
+                    "Name = @wandName," +
+                    "WoodId = @woodID," +
+                    "CoreId = @coreID," +
+                    "FlexibilityId = @flexID, " +
+                    "CountryId = @countryID, " +
+                    "Length = @length, " +
+                    "Weight = @weight, " +
+                    "Price = @price, " +
+                    "DateCreated = SYSDATETIME()," +
+                    "Description = @desc " +
+                    "WHERE Id = @wandId";
+                SqlCommand cmd = new SqlCommand(cmdString, con);
+
+
+                //create parameter object and add its value
+                SqlParameter param1 = new SqlParameter();
+                param1.ParameterName = "@wandName";
+                param1.Value = TextBox1.Text;
+                cmd.Parameters.Add(param1);
+
+                SqlParameter param2 = new SqlParameter();
+                param2.ParameterName = "@woodID";
+                param2.Value = ddlWoodType.SelectedValue;
+                cmd.Parameters.Add(param2);
+
+                SqlParameter param3 = new SqlParameter();
+                param3.ParameterName = "@coreID";
+                param3.Value = coreTypeDDL.SelectedValue;
+                cmd.Parameters.Add(param3);
+
+                SqlParameter param4 = new SqlParameter();
+                param4.ParameterName = "@flexID";
+                param4.Value = flexTypeDDL.SelectedValue;
+                cmd.Parameters.Add(param4);
+
+                SqlParameter param5 = new SqlParameter();
+                param5.ParameterName = "@countryID";
+                param5.Value = countryDDL.SelectedValue;
+                cmd.Parameters.Add(param5);
+
+                SqlParameter param6 = new SqlParameter();
+                param6.ParameterName = "@length";
+                param6.Value = TextBox2.Text;
+                cmd.Parameters.Add(param6);
+
+                SqlParameter param7 = new SqlParameter();
+                param7.ParameterName = "@weight";
+                param7.Value = TextBox3.Text;
+                cmd.Parameters.Add(param7);
+
+                SqlParameter param8 = new SqlParameter();
+                param8.ParameterName = "@price";
+                param8.Value = TextBox4.Text;
+                cmd.Parameters.Add(param8);
+
+                SqlParameter param9 = new SqlParameter();
+                param9.ParameterName = "@desc";
+                param9.Value = TextBox5.Text;
+                cmd.Parameters.Add(param9);
+
+                SqlParameter param10 = new SqlParameter();
+                param10.ParameterName = "@wandID";
+                param10.Value = WandsDDL.SelectedItem.Value;
+                cmd.Parameters.Add(param10);
+
+                int added = 0;
+
+                Label1.Visible = true;
+
+                try
+                {
+                    con.Open();
+                    added = cmd.ExecuteNonQuery();
+                    Label1.Text = "Updated " + added.ToString() + " records.";
+                }
+
+                catch (Exception err)
+                {
+                    DBErrorLabel.Visible = true;
+                    DBErrorLabel.Text = err.Message;
+                }
+
+                finally
+                {
+                    con.Close();
+                }
+                
+
+            }
+                
         }
     }
 }
