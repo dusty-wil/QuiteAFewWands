@@ -123,6 +123,8 @@ namespace QuiteAFewWands
             ;
             SqlDataReader rd;
 
+            int UserId = 0;
+
             try
             {
                 SqlCommand cmd = new SqlCommand(sql, con);
@@ -144,6 +146,12 @@ namespace QuiteAFewWands
                     Session["user_lastname"] = rd["LastName"].ToString();
                     Session["user_isadmin"] = rd["IsAdmin"].ToString();
                     Session["user_accid"] = rd["AccId"].ToString();
+
+                    if (int.TryParse(rd["Id"].ToString(), out UserId))
+                    {
+                        UpdateLastLogin(UserId);
+                    }
+
                 }
                 rd.Close();
             }
@@ -156,14 +164,32 @@ namespace QuiteAFewWands
             {
                 con.Close();
             }
-
-            UpdateLastLogin();
         }
 
 
-        private void UpdateLastLogin()
+        private void UpdateLastLogin(int UserId)
         {
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+            String sql = "UPDATE [User] SET DateLastLogin = SYSDATE() WHERE Id = @UserId";
+            
+            try
+            {
+                SqlCommand cmd = new SqlCommand(sql, con);
+                con.Open();
 
+                cmd.Parameters.AddWithValue("@UserId", UserId);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception Err)
+            {
+                DBErrMsg.InnerText = Err.ToString();
+                DBErrMsg.Visible = true;
+            }
+            finally
+            {
+                con.Close();
+            }
         }
     }
 }

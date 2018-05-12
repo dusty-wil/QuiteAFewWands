@@ -11,7 +11,22 @@ namespace QuiteAFewWands.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsAdminCheck())
+            {
+                Response.Redirect("../Default.aspx");
+            }
+        }
 
+        private bool IsAdminCheck()
+        {
+            int IsAdmin = 0;
+
+            if (Session["user_isadmin"] != null)
+            {
+                int.TryParse(Session["user_isadmin"].ToString(), out IsAdmin);
+            }
+
+            return IsAdmin == 1;
         }
     }
 }

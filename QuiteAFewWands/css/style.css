@@ -174,7 +174,7 @@ body
 }
 
 .product-grid-pager {
-    background-color: #B87D4B;
+    background-color: #B87D4B !important;
     color: #E0DDCF;
     padding: 10px;
     border: 0;
@@ -606,6 +606,14 @@ body
 {
     margin: 20px auto;
     width: 600px;
+}
+
+
+.edit-wand-lbl
+{
+    display: inline-block;
+    width: 130px;
+    vertical-align: top;
 }
 
 /*****************

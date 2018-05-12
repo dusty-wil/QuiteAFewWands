@@ -15,6 +15,13 @@ namespace QuiteAFewWands.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsAdminCheck())
+            {
+                Response.Redirect("../Default.aspx");
+            }
+
+            Label1.Visible = false;
+
             DBErrorLabel.Visible = false;
 
             if (!IsPostBack)
@@ -212,7 +219,6 @@ namespace QuiteAFewWands.Admin
             {
                 con.Open();
 
-
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
 
@@ -281,7 +287,7 @@ namespace QuiteAFewWands.Admin
                     TextBox2.Text = rd["Length"].ToString();
                     TextBox3.Text = rd["Weight"].ToString();
                     TextBox4.Text = rd["Price"].ToString();
-                    TextBox5.Text = rd["Decription"].ToString();
+                    TextBox5.Text = rd["Description"].ToString();
                 }
                 rd.Close();
             }
@@ -298,111 +304,44 @@ namespace QuiteAFewWands.Admin
             }
         }
 
+
         protected void Button1_Click(object sender, EventArgs e)
         {
-            if (WandsDDL.SelectedIndex == 0)
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            String cmdString;
+            bool adding = (WandsDDL.SelectedIndex == 0);
+
+            if (adding)
             {
-                // create connection object
-                String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
-                SqlConnection con = new SqlConnection(connectionString);
-
-                //create as CommandBehavior object
-                String cmdString = "INSERT INTO [WAND] (" +
-                "Name, " +
-                "WoodId, " +
-                "CoreId, " +
-                "FlexibilityId, " +
-                "CountryId, " +
-                "Length, " +
-                "Weight, " +
-                "Price, " +
-                "DateCreated," +
-                "Description ) VALUES ( @wandName, @woodID, @coreID, @flexID, @countryID, @length, @weight, @price, SYSDATETIME(), @desc)";
-                SqlCommand cmd = new SqlCommand(cmdString, con);
-
-                //create parameter object and add its value
-
-
-
-                SqlParameter param1 = new SqlParameter();
-                param1.ParameterName = "@wandName";
-                param1.Value = TextBox1.Text;
-                cmd.Parameters.Add(param1);
-                
-
-                SqlParameter param2 = new SqlParameter();
-                param2.ParameterName = "@woodID";
-                param2.Value = ddlWoodType.SelectedValue;
-                cmd.Parameters.Add(param2);
-
-                SqlParameter param3 = new SqlParameter();
-                param3.ParameterName = "@coreID";
-                param3.Value = coreTypeDDL.SelectedValue;
-                cmd.Parameters.Add(param3);
-
-                SqlParameter param4 = new SqlParameter();
-                param4.ParameterName = "@flexID";
-                param4.Value = flexTypeDDL.SelectedValue;
-                cmd.Parameters.Add(param4);
-
-                SqlParameter param5 = new SqlParameter();
-                param5.ParameterName = "@countryID";
-                param5.Value = countryDDL.SelectedValue;
-                cmd.Parameters.Add(param5);
-
-                SqlParameter param6 = new SqlParameter();
-                param6.ParameterName = "@length";
-                param6.Value = TextBox2.Text;
-                cmd.Parameters.Add(param6);
-       
-            
-                SqlParameter param7 = new SqlParameter();
-                param7.ParameterName = "@weight";
-                param7.Value = TextBox3.Text;
-                cmd.Parameters.Add(param7);
-
-                SqlParameter param8 = new SqlParameter();
-                param8.ParameterName = "@price";
-                param8.Value = TextBox4.Text;
-                cmd.Parameters.Add(param8);
-                
-                SqlParameter param9 = new SqlParameter();
-                param9.ParameterName = "@desc";
-                param9.Value = TextBox5.Text;
-                cmd.Parameters.Add(param9);
-
-                
-
-                int added = 0;
-
-                Label1.Visible = true;
-
-                try
-                {
-                    con.Open();
-                    added = cmd.ExecuteNonQuery();
-                    Label1.Text = "Added " + added.ToString() + " records.";
-                }
-
-                catch (Exception err)
-                {
-                    DBErrorLabel.Visible = true;
-                    DBErrorLabel.Text = err.Message;
-                }
-
-                finally
-                {
-                    con.Close();
-                }
+                cmdString = "INSERT INTO [WAND] (" +
+                    "Name, " +
+                    "WoodId, " +
+                    "CoreId, " +
+                    "FlexibilityId, " +
+                    "CountryId, " +
+                    "Length, " +
+                    "Weight, " +
+                    "Price, " +
+                    "DateCreated," +
+                    "Description " +
+                ") VALUES ( " +
+                    "@wandName, " +
+                    "@woodID, " +
+                    "@coreID, " +
+                    "@flexID, " +
+                    "@countryID, " +
+                    "@length, " +
+                    "@weight, " +
+                    "@price, " +
+                    "SYSDATETIME(), " +
+                    "@desc " +
+                ")";
             }
             else
             {
-
-                // create connection object
-                String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
-                SqlConnection con = new SqlConnection(connectionString);
-
-                String cmdString = "UPDATE [WAND] SET " +
+                cmdString = "UPDATE [WAND] SET " +
                     "Name = @wandName," +
                     "WoodId = @woodID," +
                     "CoreId = @coreID," +
@@ -413,86 +352,110 @@ namespace QuiteAFewWands.Admin
                     "Price = @price, " +
                     "DateCreated = SYSDATETIME()," +
                     "Description = @desc " +
-                    "WHERE Id = @wandId";
-                SqlCommand cmd = new SqlCommand(cmdString, con);
+                   "WHERE Id = @wandId";
+            }
+
+            SqlCommand cmd = new SqlCommand(cmdString, con);
+
+            SqlParameter param1 = new SqlParameter();
+            param1.ParameterName = "@wandName";
+            param1.Value = TextBox1.Text;
+            cmd.Parameters.Add(param1);
+
+            SqlParameter param2 = new SqlParameter();
+            param2.ParameterName = "@woodID";
+            param2.Value = ddlWoodType.SelectedValue;
+            cmd.Parameters.Add(param2);
+
+            SqlParameter param3 = new SqlParameter();
+            param3.ParameterName = "@coreID";
+            param3.Value = coreTypeDDL.SelectedValue;
+            cmd.Parameters.Add(param3);
+
+            SqlParameter param4 = new SqlParameter();
+            param4.ParameterName = "@flexID";
+            param4.Value = flexTypeDDL.SelectedValue;
+            cmd.Parameters.Add(param4);
+
+            SqlParameter param5 = new SqlParameter();
+            param5.ParameterName = "@countryID";
+            param5.Value = countryDDL.SelectedValue;
+            cmd.Parameters.Add(param5);
+
+            SqlParameter param6 = new SqlParameter();
+            param6.ParameterName = "@length";
+            param6.Value = TextBox2.Text;
+            cmd.Parameters.Add(param6);
 
 
-                //create parameter object and add its value
-                SqlParameter param1 = new SqlParameter();
-                param1.ParameterName = "@wandName";
-                param1.Value = TextBox1.Text;
-                cmd.Parameters.Add(param1);
+            SqlParameter param7 = new SqlParameter();
+            param7.ParameterName = "@weight";
+            param7.Value = TextBox3.Text;
+            cmd.Parameters.Add(param7);
 
-                SqlParameter param2 = new SqlParameter();
-                param2.ParameterName = "@woodID";
-                param2.Value = ddlWoodType.SelectedValue;
-                cmd.Parameters.Add(param2);
+            SqlParameter param8 = new SqlParameter();
+            param8.ParameterName = "@price";
+            param8.Value = TextBox4.Text;
+            cmd.Parameters.Add(param8);
 
-                SqlParameter param3 = new SqlParameter();
-                param3.ParameterName = "@coreID";
-                param3.Value = coreTypeDDL.SelectedValue;
-                cmd.Parameters.Add(param3);
+            SqlParameter param9 = new SqlParameter();
+            param9.ParameterName = "@desc";
+            param9.Value = TextBox5.Text;
+            cmd.Parameters.Add(param9);
 
-                SqlParameter param4 = new SqlParameter();
-                param4.ParameterName = "@flexID";
-                param4.Value = flexTypeDDL.SelectedValue;
-                cmd.Parameters.Add(param4);
-
-                SqlParameter param5 = new SqlParameter();
-                param5.ParameterName = "@countryID";
-                param5.Value = countryDDL.SelectedValue;
-                cmd.Parameters.Add(param5);
-
-                SqlParameter param6 = new SqlParameter();
-                param6.ParameterName = "@length";
-                param6.Value = TextBox2.Text;
-                cmd.Parameters.Add(param6);
-
-                SqlParameter param7 = new SqlParameter();
-                param7.ParameterName = "@weight";
-                param7.Value = TextBox3.Text;
-                cmd.Parameters.Add(param7);
-
-                SqlParameter param8 = new SqlParameter();
-                param8.ParameterName = "@price";
-                param8.Value = TextBox4.Text;
-                cmd.Parameters.Add(param8);
-
-                SqlParameter param9 = new SqlParameter();
-                param9.ParameterName = "@desc";
-                param9.Value = TextBox5.Text;
-                cmd.Parameters.Add(param9);
-
+            if (!adding)
+            {
                 SqlParameter param10 = new SqlParameter();
                 param10.ParameterName = "@wandID";
                 param10.Value = WandsDDL.SelectedItem.Value;
                 cmd.Parameters.Add(param10);
+            }
+            
+            int recCount = 0;
+            
+            try
+            {
+                con.Open();
+                recCount = cmd.ExecuteNonQuery();
 
-                int added = 0;
-
+                Label1.Text = ((adding) ? "Added " : "Edited ") + recCount.ToString() + " records.";
                 Label1.Visible = true;
 
-                try
-                {
-                    con.Open();
-                    added = cmd.ExecuteNonQuery();
-                    Label1.Text = "Updated " + added.ToString() + " records.";
-                }
+                TextBox1.Text = "";
+                TextBox2.Text = "";
+                TextBox3.Text = "";
+                TextBox4.Text = "";
+                TextBox5.Text = "";
+                ddlWoodType.SelectedIndex = 0;
+                coreTypeDDL.SelectedIndex = 0;
+                flexTypeDDL.SelectedIndex = 0;
+                countryDDL.SelectedIndex = 0;
 
-                catch (Exception err)
-                {
-                    DBErrorLabel.Visible = true;
-                    DBErrorLabel.Text = err.Message;
-                }
-
-                finally
-                {
-                    con.Close();
-                }
-                
-
+                FillWandDDL();
             }
-                
+
+            catch (Exception err)
+            {
+                DBErrorLabel.Visible = true;
+                DBErrorLabel.Text = err.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
+        private bool IsAdminCheck()
+        {
+            int IsAdmin = 0;
+
+            if (Session["user_isadmin"] != null)
+            {
+                int.TryParse(Session["user_isadmin"].ToString(), out IsAdmin);
+            }
+
+            return IsAdmin == 1;
         }
     }
 }
