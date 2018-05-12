@@ -24,14 +24,7 @@ namespace QuiteAFewWands.Admin
             flexValueDDL.Visible = false;
             deleteFlex.Visible = false;
             updateFlex.Visible = false;
-
-            if (!IsPostBack)
-            {
-
-            }
         }
-
-
 
 
         /* ----- IF "INSERT FLEXIBILITY" BUTTON IS CLICKED ----- */
@@ -44,10 +37,6 @@ namespace QuiteAFewWands.Admin
             
         }
 
-        protected void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         protected void saveButton_Click(object sender, EventArgs e)
         {
@@ -67,28 +56,25 @@ namespace QuiteAFewWands.Admin
             cmd.Parameters.Add(param1);
 
             int added = 0;
-            Label1.Visible = true;
 
             try
             {
                 con.Open();
                 added = cmd.ExecuteNonQuery();
                 Label1.Text = "Added " + added.ToString() + " records.";
+                Label1.Visible = true;
+                TextBox1.Text = "";
             }
-
             catch (Exception err)
             {
                 DBErrorLabel.Visible = true;
                 DBErrorLabel.Text = err.Message;
             }
-
             finally
             {
                 con.Close();
             }
         }
-
-
 
 
         /* ----- IF "DELETE FLEXIBILITY" BUTTON IS CLICKED ----- */
@@ -107,7 +93,6 @@ namespace QuiteAFewWands.Admin
             {
                 con.Open();
                 
-
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
 
@@ -118,37 +103,21 @@ namespace QuiteAFewWands.Admin
                 flexValueDDL.DataBind();
 
                 flexValueDDL.Items.Insert(0, new ListItem("--Select--", "0"));
-                
             }
-
             catch (Exception err)
             {
                 DBErrorLabel.Visible=true; 
                 DBErrorLabel.Text = err.Message;
             }
-
             finally
             {
                 con.Close();
             }
-          
-
-           
         }
-
-
-
-
-
 
 
         protected void deleteFlex_Click(object sender, EventArgs e)
         {
-
-            
-            Label1.Visible = true;
-
-
             // create connection object
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
@@ -162,7 +131,6 @@ namespace QuiteAFewWands.Admin
             param1.ParameterName = "@flexValue";
             param1.Value = flexValueDDL.SelectedItem.Text;
             cmd.Parameters.Add(param1);
-           
 
             int deleted = 0;
             try
@@ -170,25 +138,18 @@ namespace QuiteAFewWands.Admin
                 con.Open();
                 deleted = cmd.ExecuteNonQuery();
                 Label1.Text = "Deleted " + deleted.ToString() + " records.";
+                Label1.Visible = true;
             }
-
             catch (Exception err)
             {
                 DBErrorLabel.Visible = true;
                 DBErrorLabel.Text = err.Message;
             }
-
             finally
             {
                 con.Close();
             }
         }
-
-
-
-
-
-
 
 
         /* ----- IF "UPDATE FLEXIBILITY" BUTTON IS CLICKED ----- */
@@ -209,7 +170,6 @@ namespace QuiteAFewWands.Admin
             {
                 con.Open();
 
-
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
 
@@ -220,24 +180,16 @@ namespace QuiteAFewWands.Admin
                 flexValueDDL.DataBind();
 
                 flexValueDDL.Items.Insert(0, new ListItem("--Select--", "0"));
-
             }
-
             catch (Exception err)
             {
                 DBErrorLabel.Visible = true;
                 DBErrorLabel.Text = err.Message;
             }
-
             finally
             {
                 con.Close();
             }
-
-            
-
-
-            
         }
 
 
@@ -247,7 +199,6 @@ namespace QuiteAFewWands.Admin
             // create connection object
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
-
 
             //create as CommandBehavior object
             String cmdString = "UPDATE [FLEXIBILITY] SET FlexibilityValue = @FlexValue WHERE Id = @FlexID";
@@ -270,19 +221,18 @@ namespace QuiteAFewWands.Admin
                 con.Open();
                 updated = cmd.ExecuteNonQuery();
                 Label1.Text = "Updated " + updated.ToString() + " records.";
+                Label1.Visible = true;
+                TextBox1.Text = "";
             }
-
             catch (Exception err)
             {
                 DBErrorLabel.Visible = true;
                 DBErrorLabel.Text = err.Message;
             }
-
             finally
             {
                 con.Close();
             }
         }
     }
-    
 }

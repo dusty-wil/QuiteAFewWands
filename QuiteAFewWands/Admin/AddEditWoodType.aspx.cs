@@ -23,14 +23,7 @@ namespace QuiteAFewWands.Admin
             ddlWoodType.Visible = false;
             deleteWood.Visible = false;
             updateWood.Visible = false;
-
-            if (!IsPostBack)
-            {
-
-            }
         }
-
-
 
 
         /* ----- IF "INSERT WOOD TYPE" BUTTON IS CLICKED ----- */
@@ -40,12 +33,6 @@ namespace QuiteAFewWands.Admin
             preTextBoxLabel.Visible = true; //make label before textbox visible
             saveButton.Visible = true; //make save button visible
             preTextBoxLabel.Text = "Wood Type Name:";
-
-        }
-
-        protected void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         protected void saveButton_Click(object sender, EventArgs e)
@@ -66,13 +53,14 @@ namespace QuiteAFewWands.Admin
             cmd.Parameters.Add(param1);
 
             int added = 0;
-            Label1.Visible = true;
-
+            
             try
             {
                 con.Open();
                 added = cmd.ExecuteNonQuery();
                 Label1.Text = "Added " + added.ToString() + " records.";
+                Label1.Visible = true;
+                TextBox1.Text = "";
             }
 
             catch (Exception err)
@@ -86,8 +74,6 @@ namespace QuiteAFewWands.Admin
                 con.Close();
             }
         }
-
-
 
 
         /* ----- IF "DELETE WOOD TYPE" BUTTON IS CLICKED ----- */
@@ -106,7 +92,6 @@ namespace QuiteAFewWands.Admin
             {
                 con.Open();
 
-
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
 
@@ -119,35 +104,20 @@ namespace QuiteAFewWands.Admin
                 ddlWoodType.Items.Insert(0, new ListItem("--Select--", "0"));
 
             }
-
             catch (Exception err)
             {
                 DBErrorLabel.Visible = true;
                 DBErrorLabel.Text = err.Message;
             }
-
             finally
             {
                 con.Close();
             }
-
-
-
         }
-
-
-
-
-
 
 
         protected void deleteWood_Click(object sender, EventArgs e)
         {
-
-
-            Label1.Visible = true;
-
-
             // create connection object
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
@@ -162,13 +132,13 @@ namespace QuiteAFewWands.Admin
             param1.Value = ddlWoodType.SelectedItem.Text;
             cmd.Parameters.Add(param1);
 
-
             int deleted = 0;
             try
             {
                 con.Open();
                 deleted = cmd.ExecuteNonQuery();
                 Label1.Text = "Deleted " + deleted.ToString() + " records.";
+                Label1.Visible = true;
             }
 
             catch (Exception err)
@@ -182,12 +152,6 @@ namespace QuiteAFewWands.Admin
                 con.Close();
             }
         }
-
-
-
-
-
-
 
 
         /* ----- IF "UPDATE WOOD TYPE" BUTTON IS CLICKED ----- */
@@ -208,7 +172,6 @@ namespace QuiteAFewWands.Admin
             {
                 con.Open();
 
-
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
 
@@ -219,26 +182,17 @@ namespace QuiteAFewWands.Admin
                 ddlWoodType.DataBind();
 
                 ddlWoodType.Items.Insert(0, new ListItem("--Select--", "0"));
-
             }
-
             catch (Exception err)
             {
                 DBErrorLabel.Visible = true;
                 DBErrorLabel.Text = err.Message;
             }
-
             finally
             {
                 con.Close();
             }
-
-
-
-
-
         }
-
 
 
         protected void updateWood_Click(object sender, EventArgs e)
@@ -246,7 +200,6 @@ namespace QuiteAFewWands.Admin
             // create connection object
             String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
             SqlConnection con = new SqlConnection(connectionString);
-
 
             //create as CommandBehavior object
             String cmdString = "UPDATE [WOODTYPE] SET WoodTypeName = @WTypeName WHERE Id = @WTypeID";
@@ -269,21 +222,18 @@ namespace QuiteAFewWands.Admin
                 con.Open();
                 updated = cmd.ExecuteNonQuery();
                 Label1.Text = "Updated " + updated.ToString() + " records.";
+                Label1.Visible = true;
+                TextBox1.Text = "";
             }
-
             catch (Exception err)
             {
                 DBErrorLabel.Visible = true;
                 DBErrorLabel.Text = err.Message;
             }
-
             finally
             {
                 con.Close();
             }
         }
-
-        
     }
-
 }

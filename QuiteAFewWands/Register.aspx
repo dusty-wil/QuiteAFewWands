@@ -56,10 +56,11 @@
                 
                 <br class="spacer"/>
                 
-                <asp:Label ID="Lbl_AccId" runat="server" CssClass="registration-form-lbl" Text="Gringott's Account ID:" ></asp:Label>
+                <asp:Label ID="Lbl_AccId" runat="server" CssClass="registration-form-lbl" Text="Gringotts ID:" ></asp:Label>
                 <asp:TextBox  ID="Txt_AccId" CssClass="formfield-text" runat="server"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="Txt_AccId" ForeColor="Red">*</asp:RequiredFieldValidator>
                 
+                <br class="spacer"/>
                 <br class="spacer"/>
                 
                 <asp:Button ID="Btn_Register" runat="server" OnClick="Btn_Register_Click" Text="Register" cssclass="cta-btn" />

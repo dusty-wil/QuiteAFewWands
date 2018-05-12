@@ -68,7 +68,6 @@
   <ItemGroup>
     <Content Include="Admin\AddEditCoreType.aspx" />
     <Content Include="Admin\AddEditFlexibility.aspx" />
-    <Content Include="Admin\AddEditUser.aspx" />
     <Content Include="Admin\AddEditWand.aspx" />
     <Content Include="Admin\AddEditWoodType.aspx" />
     <Content Include="Admin\AdminDefault.aspx" />
@@ -129,13 +128,6 @@
     </Compile>
     <Compile Include="Admin\AddEditFlexibility.aspx.designer.cs">
       <DependentUpon>AddEditFlexibility.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\AddEditUser.aspx.cs">
-      <DependentUpon>AddEditUser.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\AddEditUser.aspx.designer.cs">
-      <DependentUpon>AddEditUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\AddEditWand.aspx.cs">
       <DependentUpon>AddEditWand.aspx</DependentUpon>

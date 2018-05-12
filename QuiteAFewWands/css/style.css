@@ -391,12 +391,13 @@ body
     border: 1px solid #2D2327;
     margin: 20px 350px;
     padding: 20px;
+    text-align: center;
 }
 
 .registration-form-lbl 
 {
     display: inline-block;
-    width: 175px;
+    width: 110px;
     text-align: right;
     margin-right: 5px;
 }
@@ -599,6 +600,12 @@ body
     display: block;
     width: 100%;
     text-align: center;
+}
+
+.admin-content-container 
+{
+    margin: 20px auto;
+    width: 600px;
 }
 
 /*****************
