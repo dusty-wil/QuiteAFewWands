@@ -56,7 +56,7 @@ namespace QuiteAFewWands
                 if (totalRatings > 0)
                 {
 
-                    e.Row.Cells[1].Text = "Avg: " + Math.Round((ratingsTotal/totalRatings), 2).ToString();
+                    e.Row.Cells[1].Text = "Avg: " + Math.Floor((ratingsTotal/totalRatings)).ToString();
                 }
             }
         }

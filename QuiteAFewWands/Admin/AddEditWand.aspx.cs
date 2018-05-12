@@ -418,7 +418,7 @@ namespace QuiteAFewWands.Admin
                 con.Open();
                 recCount = cmd.ExecuteNonQuery();
 
-                Label1.Text = ((adding) ? "Added " : "Edited ") + recCount.ToString() + " records.";
+                Label1.Text = ((adding) ? "Added " : "Edited ") + recCount.ToString() + " record.";
                 Label1.Visible = true;
 
                 TextBox1.Text = "";
@@ -438,6 +438,143 @@ namespace QuiteAFewWands.Admin
             {
                 DBErrorLabel.Visible = true;
                 DBErrorLabel.Text = err.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        protected void DelBtn_Click(object sender, EventArgs e)
+        {
+            if (WandsDDL.SelectedIndex == 0) return;
+
+            int WandId = 0;
+            if (!int.TryParse(WandsDDL.SelectedItem.Value, out WandId)) return;
+
+            DeleteOrderLine(WandId);
+            DeleteRating(WandId);
+            DeleteComment(WandId);
+            DeleteWand(WandId);
+
+            Label1.Text = "Deleted record.";
+            Label1.Visible = true;
+
+            TextBox1.Text = "";
+            TextBox2.Text = "";
+            TextBox3.Text = "";
+            TextBox4.Text = "";
+            TextBox5.Text = "";
+            ddlWoodType.SelectedIndex = 0;
+            coreTypeDDL.SelectedIndex = 0;
+            flexTypeDDL.SelectedIndex = 0;
+            countryDDL.SelectedIndex = 0;
+
+            FillWandDDL();
+        }
+
+        private void DeleteWand(int WandId)
+        {
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            String cmdString = "DELETE FROM Wand WHERE Id = @WandId";
+
+            SqlCommand cmd = new SqlCommand(cmdString, con);
+
+            try
+            {
+                con.Open();
+
+                cmd.Parameters.AddWithValue("@WandId", WandId);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception Err)
+            {
+                DBErrorLabel.Visible = true;
+                DBErrorLabel.Text = Err.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void DeleteComment(int WandId)
+        {
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            String cmdString = "DELETE FROM Comment WHERE WandId = @WandId";
+
+            SqlCommand cmd = new SqlCommand(cmdString, con);
+
+            try
+            {
+                con.Open();
+
+                cmd.Parameters.AddWithValue("@WandId", WandId);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception Err)
+            {
+                DBErrorLabel.Visible = true;
+                DBErrorLabel.Text = Err.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void DeleteRating(int WandId)
+        {
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            String cmdString = "DELETE FROM Rating WHERE WandId = @WandId";
+
+            SqlCommand cmd = new SqlCommand(cmdString, con);
+
+            try
+            {
+                con.Open();
+
+                cmd.Parameters.AddWithValue("@WandId", WandId);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception Err)
+            {
+                DBErrorLabel.Visible = true;
+                DBErrorLabel.Text = Err.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
+        private void DeleteOrderLine(int WandId)
+        {
+            String connectionString = WebConfigurationManager.ConnectionStrings["qafw"].ConnectionString;
+            SqlConnection con = new SqlConnection(connectionString);
+
+            String cmdString = "DELETE FROM OrderLine WHERE WandId = @WandId";
+
+            SqlCommand cmd = new SqlCommand(cmdString, con);
+
+            try
+            {
+                con.Open();
+
+                cmd.Parameters.AddWithValue("@WandId", WandId);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception Err)
+            {
+                DBErrorLabel.Visible = true;
+                DBErrorLabel.Text = Err.Message;
             }
             finally
             {

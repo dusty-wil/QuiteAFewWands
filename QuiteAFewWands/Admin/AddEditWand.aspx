@@ -24,6 +24,7 @@
             <span class="edit-wand-lbl">Description:</span><asp:TextBox ID="TextBox5" runat="server" TextMode="MultiLine"></asp:TextBox><br />
             <br />
             <asp:Button ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" />
+            <asp:Button ID="DelBtn" runat="server" Text="Delete" OnClick="DelBtn_Click" />
             <br />
             <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label><br />
             <asp:Label ID="DBErrorLabel" runat="server" Text="DB Error Message Here"></asp:Label>
