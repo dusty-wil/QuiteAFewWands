@@ -84,18 +84,20 @@
                         HeaderText="Comments"
                         DataTextField="CommentCount"
                         DataTextFormatString="{0}"
-                        SortExpression="AvgRating"
+                        SortExpression="CommentCount"
                         DataNavigateUrlFormatString="ViewComments.aspx?WandId={0}"
                         DataNavigateUrlFields="WandId"
                         />
-                    <asp:HyperLinkField 
-                        HeaderText="Avg. Rating" 
-                        DataTextField="AvgRating"
-                        SortExpression="CommentCount"
-                        DataTextFormatString="{0}"
-                        DataNavigateUrlFormatString="ViewRatings.aspx?WandId={0}"
-                        DataNavigateUrlFields="WandId"
-                        />
+
+                    <asp:TemplateField HeaderText="Avg. Rating" SortExpression="AvgRating">
+                        <ItemTemplate>
+                            <div class="star-container">
+                                <a href="ViewRatings.aspx?WandId=<%#Eval("WandId") %>" title="Click to add rating"><asp:Label ID="StarLabel" runat="server" Width='<%# int.Parse(Eval("AvgRating").ToString()) * 20 %>' Text="&nbsp;" CssClass="star-lbl"></asp:Label></a>
+                                <a href="ViewRatings.aspx?WandId=<%#Eval("WandId") %>"><asp:Label ID="Label1" runat="server" Text="Add Rating" Visible='<%# int.Parse(Eval("AvgRating").ToString()) < 1 %>'></asp:Label></a>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
                     <asp:HyperLinkField 
                         Text="View Item" 
                         HeaderText="Item Details" 

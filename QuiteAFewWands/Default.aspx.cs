@@ -289,6 +289,8 @@ namespace QuiteAFewWands
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
+                
+                
                 // GetAvgRatingForWand(int WandId)
                 // GetNumCommentsForWand(int WandId)
             }

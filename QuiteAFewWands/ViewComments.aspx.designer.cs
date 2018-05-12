@@ -58,30 +58,39 @@ namespace QuiteAFewWands {
         protected global::System.Web.UI.WebControls.Repeater CommentListRepeater;
         
         /// <summary>
-        /// Tbt_Comment control.
+        /// CommentTitleLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Tbt_Comment;
+        protected global::System.Web.UI.WebControls.Label CommentTitleLbl;
         
         /// <summary>
-        /// Btn_Submit control.
+        /// CommentTitleTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btn_Submit;
+        protected global::System.Web.UI.WebControls.TextBox CommentTitleTxt;
         
         /// <summary>
-        /// Lbt_Comment control.
+        /// CommentLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Lbt_Comment;
+        protected global::System.Web.UI.WebControls.Label CommentLbl;
+        
+        /// <summary>
+        /// CommentTxt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CommentTxt;
     }
 }

@@ -25,10 +25,13 @@
                     </li>
                 </ItemTemplate>
             </asp:Repeater>
-            <li>
-                <asp:TextBox ID="Tbt_Comment" runat="server" BackColor="#F1A996" BorderStyle="Solid" Height="129px" Width="380px"></asp:TextBox>
-                <asp:Button Style= "margin-left: 400px" ID="Btn_Submit" runat="server" OnClick="Btn_Submit_Click" Text="Submit" />
-                <asp:Label ID="Lbt_Comment" runat="server"></asp:Label>
+            <li class="add-comment-container">
+                <span class="comment-title">Add your comment:</span>
+                <asp:Label ID="CommentTitleLbl" CssClass="comment-lbl" runat="server" Text="Comment Title:"></asp:Label>
+                <asp:TextBox ID="CommentTitleTxt" CssClass="formfield-text comment-formfield" runat="server"></asp:TextBox>
+                <asp:Label ID="CommentLbl" cssclass="comment-lbl" runat="server" Text="Comment:"></asp:Label>
+                <asp:TextBox ID="CommentTxt" CssClass="formfield-text comment-formfield" runat="server" TextMode="MultiLine"></asp:TextBox>
+                <asp:Button runat="server" CssClass="cta-btn" OnClick="Btn_Submit_Click" Text="Submit" />
             </li>
         </ul>
     </form>

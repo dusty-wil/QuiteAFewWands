@@ -169,10 +169,11 @@ body
 .product-grid tr a 
 {
     color: #B87D4B;
+    font-weight: bold;
+    font-size: 14px;
 }
 
-.product-grid-pager 
-{
+.product-grid-pager {
     background-color: #B87D4B;
     color: #E0DDCF;
     padding: 10px;
@@ -181,6 +182,38 @@ body
     text-align: right;
 }
 
+.product-grid-pager a 
+{
+    font-size: 20px !important;
+}
+
+.product-grid-pager span 
+{
+    display: inline-block;
+    background-color: #E0DDCF;
+    color: #B87D4B;
+    width: 20px;
+    font-size: 18px;
+    -webkit-border-radius: 20px;
+       -moz-border-radius: 20px;
+            border-radius: 20px;
+}
+
+
+.star-container
+{
+    width: 100px;
+    text-align: left;
+}
+
+
+.star-lbl
+{
+    background-image: url('../images/five_star.png');
+    background-repeat: no-repeat;
+    display: block;
+    height: 23px;
+}
 
 /*****************
  * cart page
@@ -436,6 +469,20 @@ body
     display: block;
 }
 
+
+.comment-label 
+{
+    display: block;
+    margin: 5px;
+}
+
+.comment-formfield
+{
+    display: block !important;
+    width: 50%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
 
 /*****************
  * rating page

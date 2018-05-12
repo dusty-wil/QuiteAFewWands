@@ -74,6 +74,7 @@
     <Content Include="Admin\AdminDefault.aspx" />
     <Content Include="Checkout.aspx" />
     <Content Include="images\empty_star.png" />
+    <Content Include="images\five_star.png" />
     <Content Include="images\full_star.png" />
     <Content Include="images\half_star.png" />
     <Content Include="Login.aspx" />
